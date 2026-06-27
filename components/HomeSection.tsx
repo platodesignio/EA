@@ -36,7 +36,7 @@ function OrbitSVG() {
   })
 
   return (
-    <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg">
+    <svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg" style={{ maxWidth: W, aspectRatio: "1/1" }}>
       <defs>
         {/* Glow filters */}
         <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
@@ -216,10 +216,10 @@ export function HomeSection() {
   const { dispatch } = useStore()
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen">
+    <div className="bg-[#0a0a0a] min-h-screen overflow-x-hidden">
 
       {/* ── Hero ─────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-10 pt-16 pb-12 grid grid-cols-1 xl:grid-cols-[1fr_480px] gap-12 items-center">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 xl:grid-cols-[1fr_480px] gap-12 items-center" style={{ padding: "64px 48px 48px" }}>
 
         {/* Left */}
         <div>
@@ -282,7 +282,7 @@ export function HomeSection() {
 
       {/* ── Stats strip ──────────────────────────────────────────── */}
       <div className="border-t border-b border-[#1f2937]">
-        <div className="max-w-6xl mx-auto px-10 grid grid-cols-3 divide-x divide-[#1f2937]">
+        <div className="max-w-6xl mx-auto grid grid-cols-3 divide-x divide-[#1f2937]" style={{ padding: "0 48px" }}>
           {[
             { n: "9", label: "Generative Rates", desc: "Multi-dimensional audit vector  V ∈ ℝ⁹" },
             { n: "20", label: "Risk Flags", desc: "Weighted structural closure penalties" },
@@ -299,7 +299,7 @@ export function HomeSection() {
 
       {/* ── Rate vector table ─────────────────────────────────────── */}
       <div className="border-b border-[#1f2937]">
-        <div className="max-w-6xl mx-auto px-10 py-10">
+        <div className="max-w-6xl mx-auto" style={{ padding: "40px 48px" }}>
           <p className="font-mono text-[10px] tracking-[0.25em] text-[#374151] uppercase mb-6">
             Audit Vector V = [ IGR, PDFR, MGR, DRGR, SRGR, TIGR, RCR, FGR, HGR ]
           </p>
@@ -316,7 +316,7 @@ export function HomeSection() {
 
       {/* ── Two orbits ───────────────────────────────────────────── */}
       <div className="border-b border-[#1f2937]">
-        <div className="max-w-6xl mx-auto px-10 py-12 grid grid-cols-2 divide-x divide-[#1f2937]">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 divide-x divide-[#1f2937]" style={{ padding: "48px" }}>
           <div className="pr-12">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-3 h-3 rounded-full bg-[#ef4444]" style={{ boxShadow: "0 0 8px #ef4444" }} />
@@ -360,7 +360,7 @@ export function HomeSection() {
 
       {/* ── Domains ──────────────────────────────────────────────── */}
       <div className="border-b border-[#1f2937]">
-        <div className="max-w-6xl mx-auto px-10 py-8">
+        <div className="max-w-6xl mx-auto" style={{ padding: "32px 48px" }}>
           <p className="font-mono text-[10px] tracking-[0.25em] text-[#374151] uppercase mb-5">
             Applicable Domains
           </p>
@@ -375,7 +375,7 @@ export function HomeSection() {
       </div>
 
       {/* ── Final CTA ────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-10 py-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto flex items-center justify-between" style={{ padding: "64px 48px" }}>
         <div>
           <p className="font-mono text-[10px] tracking-[0.2em] text-[#374151] uppercase mb-2">
             Begin Structural Audit
@@ -390,6 +390,14 @@ export function HomeSection() {
         >
           AUDIT A SYSTEM →
         </button>
+      </div>
+      <div className="text-center mt-6 pb-4">
+        <a
+          href="/agent-council"
+          className="text-[11px] text-[#3b82f6] hover:text-[#93c5fd] font-mono transition-colors"
+        >
+          → Multi-Agent Audit Network (Beta)
+        </a>
       </div>
     </div>
   )
