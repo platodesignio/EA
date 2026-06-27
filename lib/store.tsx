@@ -1,89 +1,85 @@
 "use client"
 
-import React, { createContext, useContext, useReducer, type ReactNode } from "react"
-import type { AuditTarget, GenerativeRates, RiskFlags, Scenario } from "@/types"
-import { DEFAULT_TARGET, DEFAULT_RATES, DEFAULT_FLAGS } from "./defaultAudit"
+import React, {
+  createContext, useContext, useReducer, useEffect, type ReactNode,
+} from "react"
+import type { AuditTarget, GenerativeRates, RiskFlags } from "@/types/ddat"
+import { sampleAuditTarget, sampleRates, sampleRisks } from "./ddat/sampleData"
 
-type ActiveSection =
-  | "home"
-  | "input"
-  | "mapping"
-  | "rates"
-  | "risks"
-  | "simulation"
-  | "report"
+export type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 type State = {
-  activeSection: ActiveSection
+  step: Step
   target: AuditTarget
   rates: GenerativeRates
   flags: RiskFlags
-  scenarios: Scenario[]
-  activeScenarioId: string | null
 }
 
 type Action =
-  | { type: "SET_SECTION"; payload: ActiveSection }
+  | { type: "SET_STEP"; payload: Step }
   | { type: "SET_TARGET"; payload: Partial<AuditTarget> }
   | { type: "SET_RATE"; payload: { key: keyof GenerativeRates; value: number } }
   | { type: "SET_FLAG"; payload: { key: keyof RiskFlags; value: boolean } }
-  | { type: "ADD_SCENARIO"; payload: Scenario }
-  | { type: "REMOVE_SCENARIO"; payload: string }
-  | { type: "SET_ACTIVE_SCENARIO"; payload: string | null }
   | { type: "RESET" }
+  | { type: "HYDRATE"; payload: State }
 
-const initialState: State = {
-  activeSection: "home",
-  target: DEFAULT_TARGET,
-  rates: DEFAULT_RATES,
-  flags: DEFAULT_FLAGS,
-  scenarios: [],
-  activeScenarioId: null,
+const INITIAL: State = {
+  step: 0,
+  target: sampleAuditTarget,
+  rates: sampleRates,
+  flags: sampleRisks,
 }
+
+const STORAGE_KEY = "ddat-studio-v2"
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case "SET_SECTION":
-      return { ...state, activeSection: action.payload }
+    case "SET_STEP":
+      return { ...state, step: action.payload }
     case "SET_TARGET":
       return { ...state, target: { ...state.target, ...action.payload } }
     case "SET_RATE":
       return { ...state, rates: { ...state.rates, [action.payload.key]: action.payload.value } }
     case "SET_FLAG":
       return { ...state, flags: { ...state.flags, [action.payload.key]: action.payload.value } }
-    case "ADD_SCENARIO":
-      return { ...state, scenarios: [...state.scenarios, action.payload] }
-    case "REMOVE_SCENARIO":
-      return {
-        ...state,
-        scenarios: state.scenarios.filter((s) => s.id !== action.payload),
-        activeScenarioId: state.activeScenarioId === action.payload ? null : state.activeScenarioId,
-      }
-    case "SET_ACTIVE_SCENARIO":
-      return { ...state, activeScenarioId: action.payload }
     case "RESET":
-      return initialState
+      return INITIAL
+    case "HYDRATE":
+      return action.payload
     default:
       return state
   }
 }
 
-const StoreContext = createContext<{
-  state: State
-  dispatch: React.Dispatch<Action>
-} | null>(null)
+const Ctx = createContext<{ state: State; dispatch: React.Dispatch<Action> } | null>(null)
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, initialState)
-  return (
-    <StoreContext.Provider value={{ state, dispatch }}>
-      {children}
-    </StoreContext.Provider>
-  )
+  const [state, dispatch] = useReducer(reducer, INITIAL)
+
+  // Hydrate from localStorage
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved) {
+        const parsed = JSON.parse(saved) as State
+        dispatch({ type: "HYDRATE", payload: { ...INITIAL, ...parsed, step: 0 } })
+      }
+    } catch {}
+  }, [])
+
+  // Persist to localStorage (exclude step)
+  useEffect(() => {
+    try {
+      const { step: _step, ...rest } = state
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(rest))
+    } catch {}
+  }, [state])
+
+  return <Ctx.Provider value={{ state, dispatch }}>{children}</Ctx.Provider>
 }
 
 export function useStore() {
-  const ctx = useContext(StoreContext)
-  if (!ctx) throw new Error("useStore must be used within StoreProvider")
+  const ctx = useContext(Ctx)
+  if (!ctx) throw new Error("useStore must be inside StoreProvider")
   return ctx
 }

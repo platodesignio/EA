@@ -1,22 +1,86 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --accent: #1d4ed8;
-  --accent-light: #dbeafe;
-  --border: #e5e7eb;
-  --muted: #f9fafb;
-  --muted-text: #6b7280;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+:root {
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --fg-muted: #6b7280;
+  --fg-faint: #9ca3af;
+  --accent: #1e3a8a;
+  --accent-mid: #1d4ed8;
+  --accent-light: #eff6ff;
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --surface: #f9fafb;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --yellow: #d97706;
+  --yellow-light: #fffbeb;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-mid);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px var(--accent-mid);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-mid);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px var(--accent-mid);
+}
+
+/* Print */
+@media print {
+  .no-print { display: none !important; }
+  .print-break { page-break-before: always; }
+  body { font-size: 12px; }
+  * { color: black !important; background: white !important; }
+  .border { border-color: #ccc !important; }
 }

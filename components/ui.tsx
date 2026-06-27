@@ -2,78 +2,91 @@
 
 import { type ReactNode, type ButtonHTMLAttributes, type InputHTMLAttributes, type TextareaHTMLAttributes, type SelectHTMLAttributes } from "react"
 
+// ── Layout ──────────────────────────────────────────────
+
+export function PageShell({ children }: { children: ReactNode }) {
+  return (
+    <div className="min-h-screen bg-white">
+      {children}
+    </div>
+  )
+}
+
+export function Section({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <section className={`max-w-4xl mx-auto px-8 py-12 ${className}`}>
+      {children}
+    </section>
+  )
+}
+
+// ── Cards ──────────────────────────────────────────────
+
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`border border-gray-200 bg-white rounded-sm p-6 ${className}`}>
+    <div className={`border border-[#e5e7eb] bg-white p-6 ${className}`}>
       {children}
     </div>
   )
 }
 
-export function SectionCard({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function GrayCard({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`border border-gray-200 bg-gray-50 rounded-sm p-5 ${className}`}>
+    <div className={`border border-[#e5e7eb] bg-[#f9fafb] p-5 ${className}`}>
       {children}
     </div>
   )
 }
 
-export function Badge({ children, variant = "default" }: { children: ReactNode; variant?: "default" | "blue" | "red" | "green" | "yellow" | "gray" }) {
-  const styles: Record<string, string> = {
-    default: "bg-gray-100 text-gray-700",
-    blue:    "bg-blue-100 text-blue-800",
-    red:     "bg-red-100 text-red-800",
-    green:   "bg-green-100 text-green-800",
-    yellow:  "bg-yellow-100 text-yellow-800",
-    gray:    "bg-gray-100 text-gray-500",
-  }
+// ── Typography ──────────────────────────────────────────
+
+export function StepLabel({ n, label }: { n: number; label: string }) {
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-sm ${styles[variant]}`}>
-      {children}
-    </span>
+    <div className="mb-6">
+      <p className="text-xs font-semibold tracking-[0.15em] text-[#1d4ed8] uppercase mb-1">
+        Step {n}
+      </p>
+      <h2 className="text-3xl font-bold tracking-tight text-[#0a0a0a]">{label}</h2>
+    </div>
   )
 }
 
-export function Button({
-  children,
-  variant = "primary",
-  size = "md",
-  className = "",
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger"
-  size?: "sm" | "md" | "lg"
-}) {
-  const base = "inline-flex items-center justify-center font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed rounded-sm"
-  const sizes = { sm: "px-3 py-1.5 text-xs", md: "px-4 py-2 text-sm", lg: "px-6 py-3 text-base" }
-  const variants: Record<string, string> = {
-    primary:   "bg-blue-700 text-white hover:bg-blue-800",
-    secondary: "bg-gray-900 text-white hover:bg-gray-700",
-    outline:   "border border-gray-300 text-gray-700 hover:bg-gray-50",
-    ghost:     "text-gray-600 hover:bg-gray-100",
-    danger:    "bg-red-600 text-white hover:bg-red-700",
-  }
+export function SectionTitle({ children }: { children: ReactNode }) {
   return (
-    <button className={`${base} ${sizes[size]} ${variants[variant]} ${className}`} {...props}>
+    <p className="text-[11px] font-semibold tracking-[0.12em] text-[#6b7280] uppercase mb-3">
       {children}
-    </button>
+    </p>
+  )
+}
+
+// ── Form ──────────────────────────────────────────────
+
+export function Field({ label, sub, children }: { label: string; sub?: string; children: ReactNode }) {
+  return (
+    <div className="space-y-1">
+      <label className="block text-xs font-semibold text-[#374151] uppercase tracking-wide">
+        {label}
+      </label>
+      {sub && <p className="text-[11px] text-[#9ca3af]">{sub}</p>}
+      {children}
+    </div>
   )
 }
 
 export function Input({ className = "", ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
-      className={`w-full border border-gray-200 rounded-sm px-3 py-2 text-sm bg-white focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 ${className}`}
+      className={`w-full border border-[#e5e7eb] px-3 py-2 text-sm bg-white text-[#0a0a0a] placeholder-[#9ca3af] focus:outline-none focus:border-[#1d4ed8] focus:ring-1 focus:ring-[#1d4ed8] transition-colors ${className}`}
       {...props}
     />
   )
 }
 
-export function Textarea({ className = "", ...props }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export function Textarea({ className = "", rows = 3, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <textarea
-      className={`w-full border border-gray-200 rounded-sm px-3 py-2 text-sm bg-white focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 resize-none ${className}`}
-      rows={3}
+      rows={rows}
+      className={`w-full border border-[#e5e7eb] px-3 py-2 text-sm bg-white text-[#0a0a0a] placeholder-[#9ca3af] focus:outline-none focus:border-[#1d4ed8] focus:ring-1 focus:ring-[#1d4ed8] transition-colors resize-none ${className}`}
       {...props}
     />
   )
@@ -82,7 +95,7 @@ export function Textarea({ className = "", ...props }: TextareaHTMLAttributes<HT
 export function Select({ children, className = "", ...props }: SelectHTMLAttributes<HTMLSelectElement> & { children: ReactNode }) {
   return (
     <select
-      className={`w-full border border-gray-200 rounded-sm px-3 py-2 text-sm bg-white focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 ${className}`}
+      className={`w-full border border-[#e5e7eb] px-3 py-2 text-sm bg-white text-[#0a0a0a] focus:outline-none focus:border-[#1d4ed8] focus:ring-1 focus:ring-[#1d4ed8] transition-colors ${className}`}
       {...props}
     >
       {children}
@@ -90,38 +103,101 @@ export function Select({ children, className = "", ...props }: SelectHTMLAttribu
   )
 }
 
-export function Label({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <label className={`block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1 ${className}`}>{children}</label>
+// ── Buttons ──────────────────────────────────────────────
+
+type ButtonVariant = "primary" | "secondary" | "ghost" | "danger"
+type ButtonSize = "sm" | "md" | "lg"
+
+const BTN_BASE = "inline-flex items-center justify-center font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+
+const BTN_VARIANT: Record<ButtonVariant, string> = {
+  primary:   "bg-[#1e3a8a] text-white hover:bg-[#1d4ed8]",
+  secondary: "bg-[#0a0a0a] text-white hover:bg-[#374151]",
+  ghost:     "border border-[#e5e7eb] text-[#374151] hover:bg-[#f9fafb]",
+  danger:    "bg-[#dc2626] text-white hover:bg-[#b91c1c]",
 }
 
-export function Field({ label, children }: { label: string; children: ReactNode }) {
+const BTN_SIZE: Record<ButtonSize, string> = {
+  sm: "px-3 py-1.5 text-xs gap-1.5",
+  md: "px-5 py-2.5 text-sm gap-2",
+  lg: "px-7 py-3.5 text-base gap-2",
+}
+
+export function Button({
+  variant = "primary",
+  size = "md",
+  className = "",
+  children,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: ButtonVariant
+  size?: ButtonSize
+}) {
   return (
-    <div className="space-y-1">
-      <Label>{label}</Label>
+    <button
+      className={`${BTN_BASE} ${BTN_VARIANT[variant]} ${BTN_SIZE[size]} ${className}`}
+      {...props}
+    >
       {children}
+    </button>
+  )
+}
+
+// ── Notices ──────────────────────────────────────────────
+
+export function PhilosophyBar() {
+  return (
+    <div className="border-l-[3px] border-[#1d4ed8] bg-[#eff6ff] px-4 py-3">
+      <p className="text-xs font-semibold text-[#1e3a8a]">
+        Measurement is not ontology. A score is not a person. An audit is not a verdict.
+      </p>
     </div>
   )
 }
 
-export function Divider() {
-  return <hr className="border-gray-200" />
-}
-
-export function EthicalNotice() {
+export function SystemNotice() {
   return (
-    <div className="border-l-4 border-blue-700 bg-blue-50 px-4 py-3 text-sm text-blue-900">
-      <p className="font-semibold">Measurement is not ontology. A score is not a person. An audit is not a verdict.</p>
-    </div>
-  )
-}
-
-export function SystemWarning() {
-  return (
-    <Card className="border-amber-200 bg-amber-50">
-      <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">Important</p>
-      <p className="text-sm text-amber-900 font-medium">
+    <div className="border border-[#fbbf24] bg-[#fffbeb] px-4 py-3">
+      <p className="text-xs font-semibold text-[#92400e] mb-0.5">Notice</p>
+      <p className="text-sm text-[#78350f]">
         DDAT scores are not judgments of persons. They are audit indicators of systems, institutions, and decision architectures.
       </p>
-    </Card>
+    </div>
+  )
+}
+
+export function SimulationNotice() {
+  return (
+    <div className="border border-[#e5e7eb] bg-[#f9fafb] px-4 py-3">
+      <p className="text-xs text-[#6b7280] leading-relaxed">
+        Simulation results are not predictions. They are structured audit hypotheses based on DDAT criteria and entered assumptions.
+      </p>
+    </div>
+  )
+}
+
+// ── DCR Level ──────────────────────────────────────────────
+
+const LEVEL_STYLES: Record<string, { color: string; bg: string; text: string }> = {
+  "Freedom-generative":       { color: "#15803d", bg: "#f0fdf4", text: "text-green-700" },
+  "Conditionally generative": { color: "#1d4ed8", bg: "#eff6ff", text: "text-blue-700" },
+  "Ambivalent / unstable":    { color: "#d97706", bg: "#fffbeb", text: "text-yellow-700" },
+  "Freedom-closing":          { color: "#ea580c", bg: "#fff7ed", text: "text-orange-700" },
+  "Severe closure":           { color: "#dc2626", bg: "#fef2f2", text: "text-red-700" },
+}
+
+export function getLevelStyle(level: string) {
+  return LEVEL_STYLES[level] ?? { color: "#6b7280", bg: "#f9fafb", text: "text-gray-600" }
+}
+
+export function LevelBadge({ level }: { level: string }) {
+  const s = getLevelStyle(level)
+  return (
+    <span
+      className="inline-flex items-center px-2.5 py-1 text-xs font-semibold uppercase tracking-wide"
+      style={{ color: s.color, backgroundColor: s.bg }}
+    >
+      {level}
+    </span>
   )
 }

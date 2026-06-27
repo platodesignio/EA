@@ -1,7 +1,7 @@
 "use client"
 
-import { computeDCR } from "@/lib/calculateDCR"
-import type { AuditDomain, GenerativeRates, RiskFlags } from "@/types"
+import { calculateFinalDCR } from "@/lib/ddat/calculateDCR"
+import type { AuditDomain, GenerativeRates, RiskFlags } from "@/types/ddat"
 
 export function DCRMiniCard({
   rates,
@@ -12,7 +12,7 @@ export function DCRMiniCard({
   flags: RiskFlags
   domain: AuditDomain
 }) {
-  const { finalDCR, riskLevel } = computeDCR(rates, flags, domain)
+  const { finalDCR, riskLevel } = calculateFinalDCR(rates, flags, domain)
 
   const color =
     finalDCR >= 80 ? "#16a34a" :
@@ -29,7 +29,7 @@ export function DCRMiniCard({
       <div className="w-px h-8 bg-gray-200" />
       <div>
         <p className="text-[10px] text-gray-400">Level</p>
-        <p className="text-xs font-medium" style={{ color }}>{riskLevel}</p>
+        <p className="text-xs font-medium leading-tight" style={{ color }}>{riskLevel}</p>
       </div>
     </div>
   )
