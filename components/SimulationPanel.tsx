@@ -141,7 +141,7 @@ export function SimulationPanel() {
               <div className="space-y-4">
                 <OrbitDiagram current={sim.currentDCR} simulated={selectedIds.length > 0 ? sim.simulatedDCR : undefined} />
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="border border-[#e5e7eb] p-4" style={{ backgroundColor: curStyle.bg }}>
+                  <div className="border border-[#1f2937] bg-[#0d0d0d] p-4">
                     <p className="text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase mb-2">Current</p>
                     <p className="font-mono text-4xl font-bold" style={{ color: curStyle.color }}>
                       {Math.round(sim.currentDCR.finalDCR)}
@@ -151,9 +151,8 @@ export function SimulationPanel() {
                       {sim.currentDCR.directionalJudgment.slice(0, 80)}…
                     </p>
                   </div>
-                  <div className="border p-4 transition-all" style={{
-                    borderColor: selectedIds.length > 0 ? "#86efac" : "#e5e7eb",
-                    backgroundColor: simStyle.bg,
+                  <div className="border p-4 transition-all bg-[#0d0d0d]" style={{
+                    borderColor: selectedIds.length > 0 ? curStyle.border : "#1f2937",
                   }}>
                     <p className="text-[9px] font-bold tracking-widest text-[#9ca3af] uppercase mb-2">After Interventions</p>
                     <p className="font-mono text-4xl font-bold" style={{ color: simStyle.color }}>
