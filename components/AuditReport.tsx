@@ -96,7 +96,7 @@ export function AuditReport() {
       </div>
 
       {/* DCR Score hero */}
-      <div className="border border-[#e5e7eb] p-8 mb-8" style={{ backgroundColor: ls.bg }}>
+      <div className="border border-[#1f2937] bg-[#0d0d0d] p-8 mb-8">
         <div className="flex items-end gap-8 mb-5">
           <div>
             <p className="font-mono text-7xl font-bold leading-none" style={{ color: ls.color }}>
