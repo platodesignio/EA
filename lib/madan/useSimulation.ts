@@ -142,7 +142,7 @@ export function useSimulation() {
     })
 
     const nineRates = calculateNineRates(allCompletedAgents, scenario)
-    const disagreements = generateAgentDisagreements(allCompletedAgents)
+    const disagreements = generateAgentDisagreements(allCompletedAgents, scenario)
 
     const rtAuditor = allCompletedAgents.find((a) => a.id === "red-team-auditor")
     const bodyAuditor = allCompletedAgents.find((a) => a.id === "body-load-auditor")

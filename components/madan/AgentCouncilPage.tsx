@@ -177,9 +177,10 @@ export function AgentCouncilPage() {
                 </div>
               </div>
 
-              {/* Right: Audit Log preview */}
+              {/* Right: Audit Log */}
               <div className="w-72 shrink-0 overflow-y-auto border border-gray-100 rounded-xl p-3">
-                <AuditLog />
+                <p className="font-mono text-[9px] text-gray-400 uppercase tracking-widest mb-3 px-1">Live Audit Log</p>
+                <AuditLog compact />
               </div>
             </div>
 

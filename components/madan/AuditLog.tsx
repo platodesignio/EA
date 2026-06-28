@@ -48,7 +48,7 @@ function relativeTime(ts: number): string {
   return `${Math.floor(diff / 3600)}h ago`
 }
 
-export function AuditLog() {
+export function AuditLog({ compact = false }: { compact?: boolean }) {
   const { state } = useMADAN()
   const [filterAgent, setFilterAgent] = useState<AgentId | "all">("all")
   const [filterType, setFilterType] = useState<MessageType | "all">("all")
