@@ -130,7 +130,72 @@ export function DCRDashboard() {
         </div>
       </div>
 
-      {/* Row 4: Reachable-State Impact */}
+      {/* Row 4: Agent Disagreements */}
+      {result.agentDisagreements && result.agentDisagreements.length > 0 && (
+        <div className="mb-6">
+          <p className="text-[10px] font-semibold text-gray-500 mb-2">Agent Disagreements ({result.agentDisagreements.length})</p>
+          <div className="flex flex-col gap-2">
+            {result.agentDisagreements.map((d, i) => (
+              <div key={i} className="border border-orange-200 bg-orange-50 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[9px] font-mono font-bold text-orange-700">{d.agentA}</span>
+                  <span className="text-[8px] text-orange-400">⇄</span>
+                  <span className="text-[9px] font-mono font-bold text-orange-700">{d.agentB}</span>
+                  <span className="ml-auto text-[8px] text-orange-600 font-bold">severity {d.severity.toFixed(1)}</span>
+                </div>
+                <p className="text-[10px] text-gray-700 leading-relaxed">{d.topic}</p>
+                <div className="mt-1.5 grid grid-cols-2 gap-1">
+                  <p className="text-[9px] text-gray-500 bg-white border border-orange-100 rounded p-1"><span className="font-semibold">A:</span> {d.positionA}</p>
+                  <p className="text-[9px] text-gray-500 bg-white border border-orange-100 rounded p-1"><span className="font-semibold">B:</span> {d.positionB}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Row 5: Contradictions + Design Corrections */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div>
+          <p className="text-[10px] font-semibold text-gray-500 mb-2">Main Contradictions</p>
+          <ol className="flex flex-col gap-1.5">
+            {result.mainContradictions.map((c, i) => (
+              <li key={i} className="flex gap-2 text-[10px] text-gray-700 border border-red-100 bg-red-50 rounded p-2 leading-relaxed">
+                <span className="text-[9px] font-mono text-red-400 shrink-0">{i + 1}.</span>
+                <span>{c}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <p className="text-[10px] font-semibold text-gray-500 mb-2">Design Corrections</p>
+          <ol className="flex flex-col gap-1.5">
+            {result.designCorrections.map((c, i) => (
+              <li key={i} className="flex gap-2 text-[10px] text-gray-700 border border-blue-100 bg-blue-50 rounded p-2 leading-relaxed">
+                <span className="text-[9px] font-mono text-blue-400 shrink-0">{i + 1}.</span>
+                <span>{c}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      {/* Row 6: Freedom Closure Risks */}
+      {result.freedomClosureRisks.length > 0 && (
+        <div className="mb-6">
+          <p className="text-[10px] font-semibold text-gray-500 mb-2">Freedom-Closure Risks</p>
+          <div className="flex flex-col gap-1">
+            {result.freedomClosureRisks.map((r, i) => (
+              <div key={i} className="flex gap-2 text-[10px] text-gray-700 border border-yellow-200 bg-yellow-50 rounded p-2 leading-relaxed">
+                <span className="text-[9px] text-yellow-500">⚠</span>
+                <span>{r}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Row 7: Reachable-State Impact */}
       <div className="border border-gray-200 rounded-lg p-4">
         <div className="flex items-center gap-3">
           <div>

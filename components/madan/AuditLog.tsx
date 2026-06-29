@@ -77,29 +77,31 @@ export function AuditLog({ compact = false }: { compact?: boolean }) {
     <div className="flex flex-col h-full">
       <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Audit Log</p>
 
-      {/* Filters */}
-      <div className="flex flex-col gap-1.5 mb-3">
-        <select
-          className="text-[10px] border border-gray-200 rounded px-1.5 py-1 bg-white text-gray-700 w-full"
-          value={filterAgent}
-          onChange={(e) => setFilterAgent(e.target.value as AgentId | "all")}
-        >
-          <option value="all">All agents</option>
-          {ALL_AGENT_IDS.map((id) => (
-            <option key={id} value={id}>{id}</option>
-          ))}
-        </select>
-        <select
-          className="text-[10px] border border-gray-200 rounded px-1.5 py-1 bg-white text-gray-700 w-full"
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value as MessageType | "all")}
-        >
-          <option value="all">All message types</option>
-          {ALL_TYPES.map((t) => (
-            <option key={t} value={t}>{t}</option>
-          ))}
-        </select>
-      </div>
+      {/* Filters — hidden in compact mode */}
+      {!compact && (
+        <div className="flex flex-col gap-1.5 mb-3">
+          <select
+            className="text-[10px] border border-gray-200 rounded px-1.5 py-1 bg-white text-gray-700 w-full"
+            value={filterAgent}
+            onChange={(e) => setFilterAgent(e.target.value as AgentId | "all")}
+          >
+            <option value="all">All agents</option>
+            {ALL_AGENT_IDS.map((id) => (
+              <option key={id} value={id}>{id}</option>
+            ))}
+          </select>
+          <select
+            className="text-[10px] border border-gray-200 rounded px-1.5 py-1 bg-white text-gray-700 w-full"
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value as MessageType | "all")}
+          >
+            <option value="all">All message types</option>
+            {ALL_TYPES.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div className="text-[9px] text-gray-400 mb-2">{filtered.length} messages</div>
 
