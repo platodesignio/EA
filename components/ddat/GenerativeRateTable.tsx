@@ -44,7 +44,6 @@ export function GenerativeRateTable({ rates, compareRates, showDefinitions = fal
                     {def.shortName}
                   </span>
                   <span className="text-xs font-medium text-gray-800">{def.fullName}</span>
-                  <span className="text-[10px] text-gray-400">{def.japaneseName}</span>
                 </div>
                 {showDefinitions && (
                   <p className="text-[11px] text-gray-500 leading-relaxed">{def.definition}</p>

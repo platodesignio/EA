@@ -20,7 +20,7 @@ export function TopNav() {
       <div className="flex items-center justify-between px-6 h-11">
         <button
           onClick={() => dispatch({ type: "SET_STEP", payload: 0 })}
-          className="font-mono text-[11px] font-bold tracking-[0.3em] text-gray-900 hover:text-blue-600 transition-colors uppercase"
+          className="font-mono text-[11px] font-bold tracking-[0.2em] text-gray-900 hover:text-gray-600 transition-colors uppercase"
         >
           DDAT STUDIO
         </button>

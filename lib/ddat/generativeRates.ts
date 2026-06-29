@@ -2,70 +2,61 @@ import type { GenerativeRates } from "@/types/ddat"
 
 export const generativeRateDefinitions: Record<
   keyof GenerativeRates,
-  { shortName: string; fullName: string; japaneseName: string; definition: string }
+  { shortName: string; fullName: string; definition: string }
 > = {
   IGR: {
     shortName: "IGR",
-    fullName: "Information Generative Rate",
-    japaneseName: "情報生成率",
+    fullName: "Information Generation Rate",
     definition:
-      "Does the system generate richer, more accurate, more contextual information about the situation, or does it reduce reality into a thin score?",
+      "The degree to which the system increases meaningful access to relevant information rather than merely extracting data.",
   },
   PDFR: {
     shortName: "PDFR",
-    fullName: "Pre-Difference Field Rate",
-    japaneseName: "差異以前界生成率",
+    fullName: "Pre-Difference Field Generation Rate",
     definition:
-      "Does the system preserve unclassified potential before fixed categories are imposed, or does it prematurely classify people and cases?",
+      "The degree to which the system preserves possibilities before premature classification, labeling, or ranking fixes the subject.",
   },
   MGR: {
     shortName: "MGR",
-    fullName: "Meaning Generative Rate",
-    japaneseName: "意味生成率",
+    fullName: "Meaning / Truth-Feeling Generation Rate",
     definition:
-      "Does the system produce understandable, contestable, meaningful reasons, or does it create opaque truth-feeling without accountability?",
+      "The degree to which the system supports interpretation, contextual understanding, and a credible sense of truth rather than producing opaque signals.",
   },
   DRGR: {
     shortName: "D-RGR",
-    fullName: "Division-Relation Generative Rate",
-    japaneseName: "分業・関係生成率",
+    fullName: "Division-of-Labor Relational Generation Rate",
     definition:
-      "Does the system improve relational coordination and division of labor, or does it isolate subjects and intensify hierarchy?",
+      "The degree to which the system reorganizes roles, burdens, support, and cooperation instead of isolating responsibility onto the individual.",
   },
   SRGR: {
     shortName: "SRGR",
-    fullName: "Social Responsibility Generative Rate",
-    japaneseName: "社会責任生成率",
+    fullName: "Responsibility Generation Rate",
     definition:
-      "Does the system distribute responsibility across institutions, environments, and social conditions, or does it shift all responsibility onto the individual?",
+      "The degree to which the system makes responsibility traceable, contestable, and institutionally shared rather than displaced into automated judgment.",
   },
   TIGR: {
     shortName: "TIGR",
-    fullName: "Time Generative Rate",
-    japaneseName: "時間生成率",
+    fullName: "Temporal Integration Generation Rate",
     definition:
-      "Does the system preserve time for learning, repair, delay, maturation, and change, or does it freeze the subject in a present score?",
+      "The degree to which the system preserves historical context, developmental time, and future revision rather than freezing a person at one scored moment.",
   },
   RCR: {
     shortName: "RCR",
-    fullName: "Return Capability Rate",
-    japaneseName: "帰還能力率",
+    fullName: "Reality / Bodily Return Capacity Rate",
     definition:
-      "Does the system provide routes for appeal, re-entry, retraining, correction, or recovery after failure?",
+      "The degree to which the system remains connected to embodied burden, lived context, material constraints, and practical reality.",
   },
   FGR: {
     shortName: "FGR",
-    fullName: "Freedom Generative Rate",
-    japaneseName: "自由生成率",
+    fullName: "Freedom Generation Rate",
     definition:
-      "Does the system expand reachable states and real possibilities, or does it narrow future options?",
+      "The degree to which the system expands practical pathways for appeal, support, role reallocation, re-entry, and future possibility.",
   },
   HGR: {
     shortName: "HGR",
-    fullName: "Historical Generative Rate",
-    japaneseName: "歴史生成率",
+    fullName: "Historical Generation Rate",
     definition:
-      "Does the system preserve long-term historical development and collective transformation, or does it lock society into past patterns?",
+      "The degree to which the system allows institutions and subjects to learn historically rather than repeating hidden patterns of exclusion.",
   },
 }
 

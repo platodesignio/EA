@@ -97,11 +97,10 @@ export function GenerativeRateSliders() {
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex-1 pr-6">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono text-[10px] font-bold text-[#1d4ed8]">
+                      <span className="font-mono text-[10px] font-bold text-blue-600">
                         {def.shortName}
                       </span>
-                      <span className="text-xs font-semibold text-[#0a0a0a]">{def.fullName}</span>
-                      <span className="text-[10px] text-[#9ca3af]">{def.japaneseName}</span>
+                      <span className="text-xs font-semibold text-gray-900">{def.fullName}</span>
                     </div>
                     <p className="text-[11px] text-[#6b7280] leading-relaxed">{def.definition}</p>
                   </div>
