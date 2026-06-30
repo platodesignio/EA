@@ -48,7 +48,7 @@ export const AUDIT_AGENTS: AuditAgent[] = [
   {
     id: "nine-rates-auditor",
     name: "Nine-Rates Auditor",
-    role: "Scores each of the nine generative rates from -5 to +5 with rationale",
+    role: "Evaluates each of the nine generative rates from -5 to +5 with rationale",
     description: "Applies the full DDAT nine-rate framework to the scenario, generating a scored profile across IGR, PDF-GR, MGR, D-RGR, SRGR, TIGR, RCR, FGR, and HGR.",
     status: "idle",
     confidence: 0,

@@ -46,7 +46,7 @@ function OverviewTab() {
       {/* DCR Formula */}
       <div className="border border-gray-200 p-6 mb-6">
         <p className="text-[10px] font-mono font-bold tracking-[0.25em] text-gray-400 uppercase mb-4">
-          Directional Correctness Rating (DCR)
+          Directional Audit Index (DCR)
         </p>
         <div className="font-mono text-sm text-gray-800 bg-gray-50 border border-gray-100 px-4 py-3 mb-5">
           DCR = cos(V, F*) × 100 − Σ penalties · λ
@@ -161,7 +161,7 @@ function MethodologyTab() {
           {
             n: "3",
             title: "Generative Rate Evaluation",
-            body: "Evaluate each of the nine generative rates on a scale from 0 to 5. Each score must be accompanied by a textual justification based on the system's documented design, data inputs, and decision logic. Scores are not computed automatically; they reflect structured evaluative judgment.",
+            body: "Evaluate each of the nine generative rates on a scale from 0 to 5. Each evaluation must be accompanied by a textual justification based on the system's documented design, data inputs, and decision logic. Evaluations are not computed automatically; they reflect structured evaluative judgment.",
           },
           {
             n: "4",
@@ -171,7 +171,7 @@ function MethodologyTab() {
           {
             n: "5",
             title: "DCR Calculation",
-            body: "Calculate the Directional Correctness Rating from the cosine alignment of the nine-rate vector V with the reference vector F*, adjusted by the penalty total. The result is an audit index, not an ethical verdict.",
+            body: "Calculate the Directional Audit Index from the cosine alignment of the nine-rate vector V with the reference vector F*, adjusted by the penalty total. The result is an audit index, not an ethical verdict.",
           },
           {
             n: "6",
@@ -362,7 +362,7 @@ function LimitationsTab() {
             "DDAT does not rank or score persons.",
             "DDAT does not claim that all scoring or evaluation is harmful.",
             "DDAT does not produce a definitive ethical verdict. Its output is an audit index requiring human interpretation.",
-            "The nine generative rates are evaluated through structured human judgment, not automated computation. Results reflect the quality of the evaluator's analysis and available documentation.",
+            "The nine generative-rate evaluations are produced through structured human judgment, not automated computation. Results reflect the quality of the evaluator's analysis and available documentation.",
             "DCR values are not comparable across audits conducted by different evaluators without standardized calibration.",
             "DDAT evaluates whether a scoring or evaluation system preserves appeal, re-entry, contextual recovery, distributed responsibility, and future possibility. It does not evaluate all possible dimensions of harm or fairness.",
             "This is a research prototype. It is not validated for regulatory or legal use.",
