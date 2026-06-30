@@ -46,7 +46,7 @@ function OverviewTab() {
       {/* DCR Formula */}
       <div className="border border-gray-200 p-6 mb-6">
         <p className="text-[10px] font-mono font-bold tracking-[0.25em] text-gray-400 uppercase mb-4">
-          Directional Audit Index (DCR)
+          Directional Correctness Index (DCR)
         </p>
         <div className="font-mono text-sm text-gray-800 bg-gray-50 border border-gray-100 px-4 py-3 mb-5">
           DCR = cos(V, F*) × 100 − Σ penalties · λ
@@ -54,12 +54,12 @@ function OverviewTab() {
         <div className="space-y-3 text-sm text-gray-600 leading-relaxed">
           <p>
             <span className="font-mono text-gray-800">V</span> is the audit vector consisting of nine
-            generative-rate evaluations, each assessed on a 0–5 scale.
+            generative-rate evaluations, each assessed on a 0–5 scale with textual justification.
           </p>
           <p>
             <span className="font-mono text-gray-800">F*</span> is the reference vector representing a
             a maximally generative institutional design — one that expands re-entry, responsibility,
-            contextual recovery, and future possibility — derived from capability theory and institutional design principles.
+            contextual recovery, and future possibilities — derived from capability theory and institutional design principles.
           </p>
           <p>
             <span className="font-mono text-gray-800">Σ penalties · λ</span> represents weighted
@@ -89,7 +89,7 @@ function OverviewTab() {
           <li>It audits the directional tendency of a scoring system.</li>
           <li>A high DCR does not mean a system is ethically perfect.</li>
           <li>
-            A low DCR indicates that the system may be closing future possibility through classification,
+            A low DCR indicates that the system may be closing future possibilities through classification,
             opacity, proxy discrimination, or lack of re-entry pathways.
           </li>
         </ul>
@@ -109,7 +109,7 @@ function OverviewTab() {
             { abbr: "SRGR",  name: "Responsibility Generation Rate",               desc: "Traceable, contestable, institutionally shared responsibility rather than displaced automated judgment." },
             { abbr: "TIGR",  name: "Temporal Integration Generation Rate",         desc: "Preservation of historical context and future revision, not a frozen scored moment." },
             { abbr: "RCR",   name: "Reality / Bodily Return Capacity Rate",        desc: "Connection to embodied burden, material constraints, and lived context." },
-            { abbr: "FGR",   name: "Freedom Generation Rate",                      desc: "Expansion of practical pathways for appeal, re-entry, and future possibility." },
+            { abbr: "FGR",   name: "Freedom Generation Rate",                      desc: "Expansion of practical pathways for appeal, re-entry, and future possibilities." },
             { abbr: "HGR",   name: "Historical Generation Rate",                   desc: "Institutional and collective learning rather than reproduction of hidden exclusion patterns." },
           ].map((r) => (
             <div key={r.abbr} className="grid grid-cols-[56px_180px_1fr] gap-4 px-4 py-3 items-start">
@@ -166,12 +166,12 @@ function MethodologyTab() {
           {
             n: "4",
             title: "Penalty Evaluation",
-            body: "Apply weighted penalties for identified structural risk flags: personhood substitution, proxy discrimination, absence of appeal mechanism, absence of re-entry pathway, opaque reasoning, institutional responsibility displacement, future possibility closure, invisibility of bodily or temporal burden.",
+            body: "Apply weighted penalties for identified structural risk flags: personhood substitution, proxy discrimination, absence of appeal mechanism, absence of re-entry pathway, opaque reasoning, institutional responsibility displacement, future possibilities closure, invisibility of bodily or temporal burden.",
           },
           {
             n: "5",
             title: "DCR Calculation",
-            body: "Calculate the Directional Audit Index from the cosine alignment of the nine-rate vector V with the reference vector F*, adjusted by the penalty total. The result is an audit index, not an ethical verdict.",
+            body: "Calculate the Directional Correctness Index from the cosine alignment of the nine-rate vector V with the reference vector F*, adjusted by the penalty total. The result is an audit index, not an ethical verdict.",
           },
           {
             n: "6",
@@ -219,7 +219,7 @@ function CaseTab() {
           <p className="text-sm text-gray-600 leading-relaxed">
             The system may improve administrative throughput, but it risks substituting a compressed
             score for the person being evaluated. It converts developmental history, embodied burden,
-            social context, and future possibility into a single ranked output without mechanism for
+            social context, and future possibilities into a single ranked output without mechanism for
             appeal, contextual recovery, or institutional accountability.
           </p>
         </Section>
@@ -307,7 +307,7 @@ function ResearchTab() {
           },
           {
             ref: "NIST AI Risk Management Framework",
-            note: "DDAT complements risk-management frameworks by asking whether reliability, transparency, and fairness actually expand or close future possibility — a question RMF categories do not directly address.",
+            note: "DDAT complements risk-management frameworks by asking whether reliability, transparency, and fairness actually expand or close future possibilities — a question RMF categories do not directly address.",
           },
           {
             ref: "EU AI Act (High-Risk AI Systems)",
@@ -315,7 +315,7 @@ function ResearchTab() {
           },
           {
             ref: "Algorithmic Accountability Research",
-            note: "DDAT extends audit frameworks by adding directional assessment: not merely whether a system is biased, but whether it generates or closes the future possibility of affected subjects.",
+            note: "DDAT extends audit frameworks by adding directional assessment: not merely whether a system is biased, but whether it generates or closes the future possibilities of affected subjects.",
           },
           {
             ref: "Critical Theory of Institutions",
@@ -364,7 +364,7 @@ function LimitationsTab() {
             "DDAT does not produce a definitive ethical verdict. Its output is an audit index requiring human interpretation.",
             "The nine generative-rate evaluations are produced through structured human judgment, not automated computation. Results reflect the quality of the evaluator's analysis and available documentation.",
             "DCR values are not comparable across audits conducted by different evaluators without standardized calibration.",
-            "DDAT evaluates whether a scoring or evaluation system preserves appeal, re-entry, contextual recovery, distributed responsibility, and future possibility. It does not evaluate all possible dimensions of harm or fairness.",
+            "DDAT evaluates whether a scoring or evaluation system preserves appeal, re-entry, contextual recovery, distributed responsibility, and future possibilities. It does not evaluate all possible dimensions of harm or fairness.",
             "This is a research prototype. It is not validated for regulatory or legal use.",
           ].map((item, i) => (
             <li key={i} className="flex items-start gap-3">
@@ -402,7 +402,7 @@ function TemplateTab() {
           { n: "10", field: "DCR After Intervention",            detail: "Simulated post-intervention DCR with rate-level changes documented." },
           { n: "11", field: "Residual Risks",                    detail: "Risk flags that remain after intervention, with brief explanation." },
           { n: "12", field: "Limitations",                       detail: "Statement that this report is not a legal, medical, or moral certification." },
-          { n: "13", field: "Final Directional Judgment",        detail: "Qualitative summary of whether the system tends toward generation or closure of future possibility." },
+          { n: "13", field: "Final Directional Judgment",        detail: "Qualitative summary of whether the system tends toward generation or closure of future possibilities." },
         ].map((row) => (
           <div key={row.n} className="grid grid-cols-[32px_200px_1fr] gap-4 px-4 py-3 items-start">
             <span className="font-mono text-xs text-gray-300">{row.n}</span>

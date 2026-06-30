@@ -55,7 +55,7 @@ export function SystemMap() {
         <p className="text-sm text-[#4b5563] leading-relaxed">
           DDAT audits not only the score itself, but the social path produced by the score.
           A score becomes dangerous when it reorganizes access, opportunity, responsibility,
-          and future possibility without sufficient explanation, appeal, or re-entry.
+          and future possibilities without sufficient explanation, appeal, or re-entry.
         </p>
       </GrayCard>
 

@@ -29,7 +29,7 @@ function buildRecommendations(flags: RiskFlags, rates: GenerativeRates): string[
   if (flags.responsibilityShift)    r.push("Redistribute accountability to institutional actors and structural conditions.")
   if (flags.historicalLockIn)       r.push("Introduce counter-historical weighting to break self-reinforcing cycles of exclusion.")
   if (flags.noHumanReview)          r.push("Mandate human review at all consequential decision points.")
-  if (flags.futureClosure)          r.push("Redesign output categories to preserve future possibility rather than fix permanent status.")
+  if (flags.futureClosure)          r.push("Redesign output categories to preserve future possibilities rather than fix permanent status.")
   if (flags.surveillanceExpansion)  r.push("Restrict data collection to the minimum necessary for the stated purpose.")
   if (rates.RCR < 2)                r.push("Significantly strengthen return capability — the system currently provides minimal recovery pathways.")
   if (rates.FGR < 2)                r.push("Redesign to expand reachable states for subjects rather than narrow future options.")

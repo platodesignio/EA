@@ -64,7 +64,7 @@ export default function OGImage() {
           >
             A research prototype for auditing whether AI scoring systems,
             institutional evaluation systems, and decision architectures
-            expand or close future possibility.
+            expand or close future possibilities.
           </div>
         </div>
 

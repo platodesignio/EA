@@ -25,13 +25,13 @@ export function generateMarkdownReport(
 **Generated:** ${now}
 **System Type:** ${scenario.systemType}
 **Directional Judgment:** ${result.finalJudgment}
-**DCR Directional Audit Index:** ${dcrSign}${result.dcr.toFixed(2)} / ±5.00
+**DCR — Directional Correctness Index:** ${dcrSign}${result.dcr.toFixed(2)} / ±5.00
 
 ---
 
 ## Executive Summary
 
-The Multi-Perspective Audit Module conducted a full twelve-perspective structured audit of **${scenario.title}**. The audit produced a DCR Directional Audit Index of **${dcrSign}${result.dcr.toFixed(2)}**, yielding a directional judgment of **${result.finalJudgment}**.
+The Multi-Perspective Audit Module conducted a full twelve-perspective structured audit of **${scenario.title}**. The audit produced a DCR — Directional Correctness Index of **${dcrSign}${result.dcr.toFixed(2)}**, yielding a directional judgment of **${result.finalJudgment}**.
 
 The audit identified ${result.freedomClosureRisks.length} future-closure risks, ${result.mainContradictions.length} main contradictions across audit perspectives, and a reachable-state impact score of ${result.reachableStateImpact > 0 ? "+" : ""}${result.reachableStateImpact.toFixed(1)}.
 

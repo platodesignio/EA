@@ -35,7 +35,7 @@ export function OrbitDiagram({ current, simulated }: Props) {
       <div className="flex items-start justify-between mb-5">
         <div>
           <p className="text-[9px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-0.5">
-            DCR Directional Audit Index
+            DCR — Directional Correctness Index
           </p>
           <p className="text-xs text-gray-500">
             Position on the generative-closure spectrum
@@ -144,7 +144,7 @@ export function OrbitDiagram({ current, simulated }: Props) {
       {/* Disclaimer */}
       <p className="text-[9px] text-gray-400 mt-3 leading-relaxed border-t border-gray-100 pt-2">
         DCR is not a score of a person, institution, or moral worth. It estimates whether a decision
-        architecture expands or closes future possibility for affected persons.
+        architecture expands or closes future possibilities for affected persons.
       </p>
     </div>
   )

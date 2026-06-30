@@ -79,7 +79,7 @@ export function AgentCouncilPage() {
           {/* Method statement */}
           <div className="mt-3 border-t border-gray-100 pt-3">
             <p className="text-[10px] text-gray-500 leading-relaxed">
-              A scenario-based review module for examining how a decision system affects appeal, re-entry, responsibility allocation, context recovery, bodily burden, temporal development, and future possibility.
+              A scenario-based review module for examining how a decision system affects appeal, re-entry, responsibility allocation, context recovery, bodily burden, temporal development, and future possibilities.
               DDAT audits decision architectures — not persons.
             </p>
           </div>

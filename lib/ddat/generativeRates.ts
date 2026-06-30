@@ -50,7 +50,7 @@ export const generativeRateDefinitions: Record<
     shortName: "FGR",
     fullName: "Freedom Generation Rate",
     definition:
-      "The degree to which the system expands practical pathways for appeal, support, role reallocation, re-entry, and future possibility.",
+      "The degree to which the system expands practical pathways for appeal, support, role reallocation, re-entry, and future possibilities.",
   },
   HGR: {
     shortName: "HGR",

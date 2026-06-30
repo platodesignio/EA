@@ -18,11 +18,11 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Dialectical Direction Audit Theory",
   description:
-    "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+    "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibilities.",
   openGraph: {
     title: "Dialectical Direction Audit Theory",
     description:
-      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibilities.",
     siteName: "DDAT Studio",
     type: "website",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dialectical Direction Audit Theory",
     description:
-      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibilities.",
   },
 }
 

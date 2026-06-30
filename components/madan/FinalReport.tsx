@@ -8,13 +8,13 @@ const SAMPLE_REPORT = `# DDAT Structured Audit Report — AI Hiring System Audit
 **Generated:** 2026-06-30
 **System Type:** labor
 **Directional Judgment:** High future-closure risk. Requires structural re-entry and responsibility redesign before deployment in high-stakes hiring contexts.
-**DCR Directional Audit Index:** −1.84 / ±5.00
+**DCR — Directional Correctness Index:** −1.84 / ±5.00
 
 ---
 
 ## Executive Summary
 
-The Multi-Perspective Audit Module conducted a full twelve-perspective structured audit of the **AI Hiring System Audit**. The audit produced a DCR Directional Audit Index of **−1.84**, yielding a directional judgment of **High future-closure risk**.
+The Multi-Perspective Audit Module conducted a full twelve-perspective structured audit of the **AI Hiring System Audit**. The audit produced a DCR — Directional Correctness Index of **−1.84**, yielding a directional judgment of **High future-closure risk**.
 
 The audit identified 4 future-closure risks, 3 main contradictions across audit perspectives, and a reachable-state impact score of −2.1.
 
@@ -71,7 +71,7 @@ The audit identified 4 future-closure risks, 3 main contradictions across audit 
 
 ## Directional Judgment
 
-**DCR Directional Audit Index:** −1.84
+**DCR — Directional Correctness Index:** −1.84
 **Reachable-State Impact:** Reducing (−2.1)
 
 This system, as currently designed, contracts the reachable state space of affected populations. The combination of early-stage classification, opaque rationale, absent re-entry design, and displaced responsibility produces cumulative future-closure risk that exceeds what can be addressed by surface-level interface changes. Structural redesign of the scoring form, responsibility allocation, and appeal mechanism is required before deployment in consequential hiring contexts.

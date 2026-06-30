@@ -66,7 +66,7 @@ export function ScenarioInputPanel() {
         </p>
         <p className="text-sm text-gray-600 leading-relaxed">
           Define the decision architecture to be audited. This module examines how a system affects
-          appeal, re-entry, responsibility, context recovery, bodily burden, and future possibility.
+          appeal, re-entry, responsibility, context recovery, bodily burden, and future possibilities.
           DDAT does not evaluate persons — it audits decision architectures.
         </p>
       </div>

@@ -28,7 +28,7 @@ export function generateRecommendations(flags: RiskFlags, rates: GenerativeRates
   if (flags.excessiveAutomation)
     recs.push("Limit automation to pre-selection support roles; require human judgment for final decisions.")
   if (flags.futureClosure)
-    recs.push("Redesign output categories to preserve future possibility rather than fix permanent status.")
+    recs.push("Redesign output categories to preserve future possibilities rather than fix permanent status.")
   if (flags.surveillanceExpansion)
     recs.push("Restrict data collection to the minimum necessary for the stated purpose. Enforce scope limits.")
   if (flags.shortTermKPI)
