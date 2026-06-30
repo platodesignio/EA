@@ -16,8 +16,22 @@ const mono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "DDAT Studio — Dialectical Direction Audit Theory",
-  description: "Structural audit simulator for AI scoring systems, institutions, and decision architectures.",
+  title: "Dialectical Direction Audit Theory",
+  description:
+    "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+  openGraph: {
+    title: "Dialectical Direction Audit Theory",
+    description:
+      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+    siteName: "DDAT Studio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dialectical Direction Audit Theory",
+    description:
+      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibility.",
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
