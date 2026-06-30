@@ -57,8 +57,7 @@ function OverviewTab() {
             generative-rate evaluations, each assessed on a 0–5 scale with textual justification.
           </p>
           <p>
-            <span className="font-mono text-gray-800">F*</span> is the reference vector representing a
-            a maximally generative institutional design — one that expands re-entry, responsibility,
+            <span className="font-mono text-gray-800">F*</span> is the reference vector representing a maximally generative institutional design — one that expands re-entry, responsibility,
             contextual recovery, and future possibilities — derived from capability theory and institutional design principles.
           </p>
           <p>

@@ -126,7 +126,7 @@ export const AUDIT_AGENTS: AuditAgent[] = [
     id: "ddat-judge",
     name: "DDAT Judge",
     role: "Issues the final directional judgment based on all audit perspective outputs",
-    description: "Delivers the final directional assessment of the system under audit, integrating all perspective outputs, the DCR — Directional Correctness Index, and unresolved contradictions into a structured judgment.",
+    description: "Delivers the final directional assessment of the system under audit, integrating all perspective outputs, the Directional Correctness Index (DCR), and unresolved contradictions into a structured judgment.",
     status: "idle",
     confidence: 0,
     riskFlags: [],

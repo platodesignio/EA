@@ -35,7 +35,7 @@ export function OrbitDiagram({ current, simulated }: Props) {
       <div className="flex items-start justify-between mb-5">
         <div>
           <p className="text-[9px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-0.5">
-            DCR — Directional Correctness Index
+            Directional Correctness Index (DCR)
           </p>
           <p className="text-xs text-gray-500">
             Position on the generative-closure spectrum

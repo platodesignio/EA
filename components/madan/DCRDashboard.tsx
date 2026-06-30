@@ -30,7 +30,7 @@ export function DCRDashboard() {
 
   return (
     <div className="border-t border-gray-200 bg-white mt-4 pt-4">
-      <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">DCR — Directional Correctness Index</p>
+      <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">Directional Correctness Index (DCR)</p>
 
       {/* Row 1: DCR + Judgment */}
       <div className="flex items-start gap-6 mb-6">
