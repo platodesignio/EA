@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
-import { StoreProvider } from "@/lib/store"
+import { EvidenceStoreProvider } from "@/lib/evidence-store"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,14 +16,14 @@ const mono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Dialectical Direction Audit Theory",
+  title: "DDAT Evidence Simulator",
   description:
-    "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibilities.",
+    "A research prototype for auditing AI-scored decision systems. DDAT audits institutions, not persons.",
   openGraph: {
-    title: "Dialectical Direction Audit Theory",
+    title: "DDAT Evidence Simulator",
     description:
-      "A research prototype for auditing whether AI scoring systems, institutional evaluation systems, and decision architectures expand or close future possibilities.",
-    siteName: "DDAT Studio",
+      "A research prototype for auditing AI-scored decision systems. DDAT audits institutions, not persons.",
+    siteName: "DDAT Evidence Simulator",
     type: "website",
   },
   twitter: {
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body>
-        <StoreProvider>{children}</StoreProvider>
+        <EvidenceStoreProvider>{children}</EvidenceStoreProvider>
       </body>
     </html>
   )

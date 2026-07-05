@@ -1,33 +1,35 @@
 "use client"
 
-import { useStore } from "@/lib/store"
-import { TopNav } from "@/components/TopNav"
-import { HomeSection } from "@/components/HomeSection"
-import { AuditForm } from "@/components/AuditForm"
-import { SystemMap } from "@/components/SystemMap"
-import { GenerativeRateSliders } from "@/components/GenerativeRateSliders"
-import { RiskFlagChecklist } from "@/components/RiskFlagChecklist"
-import { SimulationPanel } from "@/components/SimulationPanel"
-import { AuditReport } from "@/components/AuditReport"
+import { useEvidenceStore } from "@/lib/evidence-store"
+import { EvidenceNav } from "@/components/evidence/EvidenceNav"
+import { OverviewSection } from "@/components/evidence/OverviewSection"
+import { InstitutionProfileForm } from "@/components/evidence/InstitutionProfileForm"
+import { ClassificationForm } from "@/components/evidence/ClassificationForm"
+import { ContestabilityForm } from "@/components/evidence/ContestabilityForm"
+import { SupportReentryForm } from "@/components/evidence/SupportReentryForm"
+import { CounterfactualForm } from "@/components/evidence/CounterfactualForm"
+import { EvidenceSourcesForm } from "@/components/evidence/EvidenceSourcesForm"
+import { JudgmentReport } from "@/components/evidence/JudgmentReport"
 
 function Content() {
-  const { state } = useStore()
+  const { state } = useEvidenceStore()
   switch (state.step) {
-    case 0: return <HomeSection />
-    case 1: return <AuditForm />
-    case 2: return <SystemMap />
-    case 3: return <GenerativeRateSliders />
-    case 4: return <RiskFlagChecklist />
-    case 5: return <SimulationPanel />
-    case 6: return <AuditReport />
-    default: return <HomeSection />
+    case 0: return <OverviewSection />
+    case 1: return <InstitutionProfileForm />
+    case 2: return <ClassificationForm />
+    case 3: return <ContestabilityForm />
+    case 4: return <SupportReentryForm />
+    case 5: return <CounterfactualForm />
+    case 6: return <EvidenceSourcesForm />
+    case 7: return <JudgmentReport />
+    default: return <OverviewSection />
   }
 }
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-white">
-      <TopNav />
+      <EvidenceNav />
       <main>
         <Content />
       </main>
