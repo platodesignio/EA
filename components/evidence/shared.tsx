@@ -183,6 +183,43 @@ export function ScoreSelect({
   )
 }
 
+// ─── ChoiceGroup — generic labeled button-group over any string enum ──────────
+export function ChoiceGroup<T extends string>({
+  value,
+  onChange,
+  options,
+  label,
+  hint,
+}: {
+  value: T
+  onChange: (v: T) => void
+  options: { value: T; label: string }[]
+  label?: string
+  hint?: string
+}) {
+  return (
+    <div>
+      {label && <Label hint={hint}>{label}</Label>}
+      <div className="flex gap-2 flex-wrap">
+        {options.map(o => (
+          <button
+            key={o.value}
+            type="button"
+            onClick={() => onChange(o.value)}
+            className={`px-2.5 py-1.5 text-[11px] font-mono border transition-colors ${
+              value === o.value
+                ? "bg-gray-900 text-white border-gray-900"
+                : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+            }`}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ─── SectionBanner ────────────────────────────────────────────────────────────
 export function SectionBanner({ children }: { children: React.ReactNode }) {
   return (
