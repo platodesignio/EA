@@ -180,6 +180,9 @@ export type ContradictionCheck = {
   claim: string
   violated: boolean
   operationalFinding: string
+  // Board-memo phrasing combining claim + finding into one sentence, e.g.
+  // "Human-centered claim is weakened by a missing appeal route."
+  plainFinding: string
 }
 
 export type ContradictionIndexResult = {

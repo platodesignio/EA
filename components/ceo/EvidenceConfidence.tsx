@@ -2,7 +2,7 @@
 
 import { useMemo } from "react"
 import { useCEOConsoleStore } from "@/lib/ceo-console-store"
-import { computeEvidenceConfidence } from "@/lib/scoring"
+import { computeEvidenceConfidence, deriveMissingEvidenceList } from "@/lib/scoring"
 import { DECISION_STAGE_ORDER, DECISION_STAGE_LABEL, CHAIN_ITEM_ORDER, CHAIN_ITEM_LABEL, EVIDENCE_TIER_OPTIONS } from "@/lib/questions"
 import { PageContainer, SectionTitle, SectionBanner, PrimaryButton, SecondaryButton, Card } from "@/components/evidence/shared"
 
@@ -19,6 +19,10 @@ export function EvidenceConfidence() {
   const confidence = useMemo(
     () => computeEvidenceConfidence(audit_unit.scan_basis, decision_stages, chain_items),
     [audit_unit.scan_basis, decision_stages, chain_items]
+  )
+  const missingEvidence = useMemo(
+    () => deriveMissingEvidenceList(decision_stages, chain_items),
+    [decision_stages, chain_items]
   )
 
   const evidenceLabel = (v: string) => EVIDENCE_TIER_OPTIONS.find(o => o.value === v)?.label ?? v
@@ -45,19 +49,39 @@ export function EvidenceConfidence() {
         <p className="text-sm text-gray-700 leading-relaxed">{confidence.explanation}</p>
       </div>
 
+      <div className="mb-8">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          Missing Evidence
+        </p>
+        {missingEvidence.length > 0 ? (
+          <ul className="space-y-1.5">
+            {missingEvidence.map((m, i) => (
+              <li key={`${m}-${i}`} className="flex gap-2 text-sm text-gray-700">
+                <span className="text-gray-300 shrink-0">—</span>
+                <span>{m}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-xs text-gray-500 font-mono border border-gray-200 px-3 py-2">
+            No evidence gaps — every stage and chain item has at least one recorded evidence type.
+          </p>
+        )}
+      </div>
+
       <Card className="mb-10">
         <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
           Evidence by Stage and Chain Item
         </p>
         <div className="space-y-1.5">
           {DECISION_STAGE_ORDER.map(key => (
-            <div key={key} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0 text-xs">
+            <div key={`stage-${key}`} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0 text-xs">
               <span className="text-gray-600">{DECISION_STAGE_LABEL[key]}</span>
               <span className="font-mono text-gray-900">{evidenceLabel(decision_stages[key].evidence)}</span>
             </div>
           ))}
           {CHAIN_ITEM_ORDER.map(key => (
-            <div key={key} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0 text-xs">
+            <div key={`chain-${key}`} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0 text-xs">
               <span className="text-gray-600">{CHAIN_ITEM_LABEL[key]}</span>
               <span className="font-mono text-gray-900">{evidenceLabel(chain_items[key].evidence)}</span>
             </div>

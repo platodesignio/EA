@@ -67,8 +67,12 @@ export function MasterFunctionDetection() {
             <p className="text-sm text-gray-900">{result.operational.join(", ")}</p>
           </div>
         </div>
-        <p className="text-[11px] font-mono font-bold text-gray-900 uppercase tracking-wide">
+        <p className="text-[11px] font-mono font-bold text-gray-900 uppercase tracking-wide mb-3">
           Contradiction Risk: {result.contradictionRisk}
+        </p>
+        <p className="text-xs text-gray-500 leading-relaxed">
+          The operational master function is the function that appears to hold practical authority over the
+          evaluated human, based on the answers and evidence provided.
         </p>
       </Card>
 

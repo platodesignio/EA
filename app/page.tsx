@@ -14,6 +14,7 @@ import { CounterfactualForm } from "@/components/evidence/CounterfactualForm"
 import { EvidenceSourcesForm } from "@/components/evidence/EvidenceSourcesForm"
 import { JudgmentReport } from "@/components/evidence/JudgmentReport"
 
+import { DISCLAIMER_TEXT } from "@/lib/report"
 import { ConsoleNav } from "@/components/ceo/ConsoleNav"
 import { CEOConsoleHero } from "@/components/ceo/CEOConsoleHero"
 import { AuditUnitSetup } from "@/components/ceo/AuditUnitSetup"
@@ -82,11 +83,16 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <ConsoleNav onViewAuditLogic={() => setView("logic")} />
-      <main>
+      <main className="flex-1">
         <ConsoleContent onViewAuditLogic={() => setView("logic")} />
       </main>
+      <footer className="print:hidden border-t border-gray-100 mt-4">
+        <p className="max-w-3xl mx-auto px-6 py-6 text-[10px] text-gray-400 leading-relaxed">
+          {DISCLAIMER_TEXT}
+        </p>
+      </footer>
     </div>
   )
 }

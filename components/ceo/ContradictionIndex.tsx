@@ -2,7 +2,7 @@
 
 import { useMemo } from "react"
 import { useCEOConsoleStore } from "@/lib/ceo-console-store"
-import { deriveMasterFunction, computeContradictionIndex } from "@/lib/scoring"
+import { deriveMasterFunction, computeContradictionIndex, NO_CONTRADICTION_TEXT } from "@/lib/scoring"
 import { PageContainer, SectionTitle, SectionBanner, PrimaryButton, SecondaryButton, Card } from "@/components/evidence/shared"
 
 const INDEX_BORDER: Record<string, string> = {
@@ -58,20 +58,20 @@ export function ContradictionIndex() {
         </div>
         <div>
           <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
-            Operational Governance Pattern
+            Findings
           </p>
-          {contradiction.operationalGovernancePattern.length > 0 ? (
+          {contradiction.checks.some(c => c.violated) ? (
             <ul className="space-y-1.5">
-              {contradiction.operationalGovernancePattern.map((p, i) => (
-                <li key={i} className="flex gap-2 text-sm text-gray-900">
+              {contradiction.checks.filter(c => c.violated).map(c => (
+                <li key={c.id} className="flex gap-2 text-sm text-gray-900">
                   <span className="text-gray-300 shrink-0">—</span>
-                  <span>{p}</span>
+                  <span>{c.plainFinding}</span>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-xs text-gray-500 font-mono border border-gray-200 px-3 py-2">
-              No contradictions found between the assumed narrative and the recorded operational structure.
+            <p className="text-xs text-gray-500 font-mono border border-gray-200 px-3 py-2 leading-relaxed">
+              {NO_CONTRADICTION_TEXT}
             </p>
           )}
         </div>

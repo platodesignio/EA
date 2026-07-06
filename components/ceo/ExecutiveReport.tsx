@@ -43,6 +43,35 @@ export function ExecutiveReport() {
     window.print()
   }
 
+  // Clipboard access can be blocked (permissions, focus, embedded webviews).
+  // A file download always works and is the only copy of this report that
+  // survives outside this browser tab's storage — important since the app
+  // has no backend and no login.
+  function downloadReport() {
+    const fileName = `ceo-ai-accountability-scan-${c.audit_unit.organization_name.trim().replace(/\s+/g, "-").toLowerCase() || "report"}.txt`
+    const blob = new Blob([report], { type: "text/plain" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = fileName
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  async function shareReport() {
+    const fileName = "ceo-ai-accountability-scan.txt"
+    const file = new File([report], fileName, { type: "text/plain" })
+    if (navigator.canShare?.({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: "CEO AI Accountability Console — Preliminary Executive Scan" })
+        return
+      } catch {
+        // user cancelled or share failed — fall through to download
+      }
+    }
+    downloadReport()
+  }
+
   return (
     <PageContainer>
       <div className="print:hidden">
@@ -54,12 +83,12 @@ export function ExecutiveReport() {
           based on the information provided.
         </SectionBanner>
 
-        <div className="flex flex-wrap gap-3 mb-8">
+        <div className="flex flex-wrap items-center gap-3 mb-8">
           <button
             onClick={copyReport}
             className="px-4 py-2 bg-gray-900 text-white text-[11px] font-mono tracking-wider uppercase hover:bg-gray-700 transition-colors"
           >
-            {copied ? "Copied ✓" : "Copy Report"}
+            Copy Report
           </button>
           <button
             onClick={printReport}
@@ -68,7 +97,13 @@ export function ExecutiveReport() {
             Print Report
           </button>
           <button
-            onClick={() => { if (confirm("Reset the scan? Current data will be cleared.")) dispatch({ type: "RESET" }) }}
+            onClick={shareReport}
+            className="px-4 py-2 border border-gray-300 text-[11px] font-mono text-gray-700 hover:border-gray-600 transition-colors"
+          >
+            Save / Share Report
+          </button>
+          <button
+            onClick={() => { if (confirm("Reset this scan? Current data will be cleared.")) dispatch({ type: "RESET" }) }}
             className="px-4 py-2 border border-gray-300 text-[11px] font-mono text-gray-700 hover:border-gray-600 transition-colors"
           >
             Reset Scan
@@ -79,6 +114,7 @@ export function ExecutiveReport() {
           >
             Request Institutional Audit
           </a>
+          {copied && <span className="text-[11px] font-mono text-gray-500">Report copied.</span>}
         </div>
       </div>
 

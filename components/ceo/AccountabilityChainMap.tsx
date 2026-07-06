@@ -33,6 +33,43 @@ export function AccountabilityChainMap() {
         ))}
       </div>
 
+      <Card className="mb-8 overflow-x-auto">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          Chain Summary
+        </p>
+        <table className="w-full text-xs border-collapse">
+          <thead>
+            <tr className="border-b border-gray-200 text-left text-gray-400 font-mono uppercase text-[10px]">
+              <th className="py-1.5 pr-3 font-normal">Stage</th>
+              <th className="py-1.5 pr-3 font-normal">Owner</th>
+              <th className="py-1.5 pr-3 font-normal">Evidence</th>
+              <th className="py-1.5 pr-3 font-normal">Responsibility Clarity</th>
+              <th className="py-1.5 font-normal">Risk Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {CHAIN_ITEM_ORDER.map(key => {
+              const item = items[key]
+              const evidenceLabel = EVIDENCE_TIER_OPTIONS.find(o => o.value === item.evidence)?.label ?? item.evidence
+              const clarityLabel = RESPONSIBILITY_CLARITY_OPTIONS.find(o => o.value === item.responsibility_clarity)?.label ?? item.responsibility_clarity
+              return (
+                <tr key={key} className="border-b border-gray-100 last:border-0 text-gray-700">
+                  <td className="py-1.5 pr-3 whitespace-nowrap">{CHAIN_ITEM_LABEL[key]}</td>
+                  <td className="py-1.5 pr-3">{item.owner.trim() || "Missing owner"}</td>
+                  <td className="py-1.5 pr-3">{item.evidence === "none" ? "Missing evidence" : evidenceLabel}</td>
+                  <td className="py-1.5 pr-3">
+                    {item.responsibility_clarity === "no_clear_owner" || item.responsibility_clarity === "unknown"
+                      ? "Unclear responsibility"
+                      : clarityLabel}
+                  </td>
+                  <td className="py-1.5 text-gray-500">{item.risk_note.trim() || "—"}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </Card>
+
       <div className="space-y-2 mb-10">
         {CHAIN_ITEM_ORDER.map(key => {
           const item = items[key]

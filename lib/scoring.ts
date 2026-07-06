@@ -171,12 +171,17 @@ export function computeEvidenceConfidence(
 
   const level: ConfidenceLevel = percent < 40 ? "Low" : percent < 70 ? "Medium" : "High"
 
+  const explanation: Record<ConfidenceLevel, string> = {
+    Low: "Low evidence confidence. This does not mean low risk. It means the available evidence is insufficient to verify the accountability structure.",
+    Medium: "Medium evidence confidence. Some independent verification exists, but coverage of the accountability structure remains incomplete.",
+    High: "High evidence confidence. The accountability structure is supported by independent or verified evidence.",
+  }
+
   return {
     percent,
     level,
     strongestTier,
-    explanation:
-      "Low confidence does not mean low risk. It means the available evidence is insufficient to verify the accountability structure.",
+    explanation: explanation[level],
   }
 }
 
@@ -206,24 +211,28 @@ export function computeContradictionIndex(
       claim: "The organization operates a human-centered AI system.",
       violated: stages.appeal.exists === "no" && stages.human_review.exists === "no",
       operationalFinding: "No appeal route and no human review stage are recorded.",
+      plainFinding: "Human-centered claim is weakened by a missing appeal route.",
     },
     {
       id: "oversight_no_override",
       claim: "The organization maintains human oversight of the system.",
       violated: stages.human_review.exists !== "yes",
       operationalFinding: "Human review is not confirmed to fully exist for this system.",
+      plainFinding: "Human oversight claim is weakened by unclear override authority.",
     },
     {
       id: "transparency_no_explanation",
       claim: "The organization provides transparent decision-making.",
       violated: !stages.output.documented && weakEvidence(stages.output.evidence),
       operationalFinding: "Output is undocumented and unsupported by evidence stronger than self-report.",
+      plainFinding: "Transparency claim is weakened by a missing reason-giving mechanism.",
     },
     {
       id: "responsibility_no_owner",
       claim: "The organization takes responsibility for system outcomes.",
       violated: !hasClearOwner,
       operationalFinding: "No stage or chain item has a clear owner with authority.",
+      plainFinding: "Responsibility claim is weakened by a missing responsible owner.",
     },
     {
       id: "advisory_but_access_control",
@@ -233,18 +242,21 @@ export function computeContradictionIndex(
         (masterFunction.operationalScores["Access Control"] >= 3 ||
           masterFunction.operationalScores["Automated Exclusion"] >= 3),
       operationalFinding: "Operational signals show strong access control or automated exclusion despite an advisory framing.",
+      plainFinding: "Recommendation claim may be operationally closer to ranking or access control.",
     },
     {
       id: "advisory_but_automatic_decision",
       claim: "AI outputs are advisory; a human makes the final decision.",
       violated: stages.decision.exists === "yes" && stages.human_review.exists !== "yes",
       operationalFinding: "A decision stage exists without a fully confirmed human review stage in front of it.",
+      plainFinding: "Advisory-use claim is weakened by a decision stage without confirmed human review.",
     },
     {
       id: "fairness_no_correction",
       claim: "The organization ensures fairness and correction for affected people.",
       violated: stages.re_entry.exists === "no" || stages.re_entry.evidence === "none",
       operationalFinding: "No re-entry stage or no supporting evidence for re-entry is recorded.",
+      plainFinding: "Fairness claim is weakened by a missing re-entry or correction pathway.",
     },
   ]
 
@@ -258,6 +270,9 @@ export function computeContradictionIndex(
     index,
   }
 }
+
+export const NO_CONTRADICTION_TEXT =
+  "No major contradiction detected from the available information. This does not verify the system; it only means the current answers did not expose a major contradiction."
 
 // ─── Section 7 — Risk Dashboard ────────────────────────────────────────────
 
@@ -276,6 +291,45 @@ function stageEvidenceStrength(e: EvidenceTier): 0 | 1 | 2 | 3 {
   if (e === "public_document" || e === "internal_policy") return 2
   if (e === "self_report_only") return 1
   return 0
+}
+
+// Shared by the Risk Dashboard ("Primary Missing Evidence") and the Evidence
+// Confidence page, so both surfaces list identical gaps.
+export function deriveMissingEvidenceList(
+  stages: Record<DecisionStageKey, DecisionStageData>,
+  chainItems: Record<ChainItemKey, ChainItemData>
+): string[] {
+  return [
+    ...Object.entries(stages)
+      .filter(([, s]) => s.evidence === "none")
+      .map(([key]) => DECISION_STAGE_LABEL[key as DecisionStageKey]),
+    ...Object.entries(chainItems)
+      .filter(([, c]) => c.evidence === "none")
+      .map(([key]) => CHAIN_ITEM_LABEL[key as ChainItemKey]),
+  ]
+}
+
+export function formatPreliminaryRisk(category: PreliminaryRiskCategory): string {
+  return `${category} preliminary risk`
+}
+
+// Names the single risk domain contributing most to the overall preliminary
+// risk figure, for the Executive Summary's "Primary operational concern" line.
+const RISK_DOMAIN_LABEL: Record<RiskDomainKey, string> = {
+  ontological_overreach: "Ontological overreach",
+  human_reduction: "Human reduction",
+  responsibility_displacement: "Responsibility displacement",
+  recognition_loss: "Recognition loss",
+  reversal_loss: "Reversal loss",
+  future_closure: "Future closure",
+  return_damage: "Return damage",
+}
+
+export function derivePrimaryOperationalConcern(riskDomains: Record<RiskDomainKey, number>): string {
+  const entries = Object.entries(riskDomains) as [RiskDomainKey, number][]
+  const [topKey, topValue] = entries.reduce((max, e) => (e[1] > max[1] ? e : max))
+  if (topValue === 0) return "No significant operational concern identified from the evidence provided."
+  return `${RISK_DOMAIN_LABEL[topKey]} risk (${topValue}/4)`
 }
 
 export function computeRiskDashboard(
@@ -405,14 +459,7 @@ export function computeRiskDashboard(
   const preliminaryRiskCategory: PreliminaryRiskCategory =
     preliminaryRisk < 1.0 ? "Low" : preliminaryRisk < 2.0 ? "Moderate" : preliminaryRisk < 3.0 ? "High" : "Severe"
 
-  const primaryMissingEvidence: string[] = [
-    ...Object.entries(stages)
-      .filter(([, s]) => s.evidence === "none")
-      .map(([key]) => DECISION_STAGE_LABEL[key as DecisionStageKey]),
-    ...Object.entries(chainItems)
-      .filter(([, c]) => c.evidence === "none")
-      .map(([key]) => CHAIN_ITEM_LABEL[key as ChainItemKey]),
-  ].slice(0, 6)
+  const primaryMissingEvidence: string[] = deriveMissingEvidenceList(stages, chainItems).slice(0, 6)
 
   const recommendedImmediateAction = deriveRecommendedNextSteps({
     hasClearOwner,

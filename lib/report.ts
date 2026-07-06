@@ -3,13 +3,13 @@
 // headers, no markup that would look strange pasted into an email or Word
 // document, and no gamified language.
 
-import type { CEOConsoleCase, MasterFunctionResult, EvidenceConfidenceResult, ContradictionIndexResult, RiskDashboardResult } from "./types"
+import type { CEOConsoleCase, MasterFunctionResult, EvidenceConfidenceResult, ContradictionIndexResult, RiskDashboardResult, EvidenceTier, ResponsibilityClarity } from "./types"
 import {
   ROLE_OPTIONS, CONSEQUENCE_OPTIONS, SCAN_BASIS_OPTIONS,
   DECISION_STAGE_ORDER, DECISION_STAGE_LABEL, STAGE_EXISTS_OPTIONS, EVIDENCE_TIER_OPTIONS, RESPONSIBILITY_CLARITY_OPTIONS,
   DECLARED_MASTER_FUNCTION_OPTIONS, CHAIN_ITEM_ORDER, CHAIN_ITEM_LABEL,
 } from "./questions"
-import { deriveRecommendedNextSteps } from "./scoring"
+import { deriveRecommendedNextSteps, derivePrimaryOperationalConcern, formatPreliminaryRisk, NO_CONTRADICTION_TEXT } from "./scoring"
 
 function labelOf<T extends string>(options: { value: T; label: string }[], value: T): string {
   return options.find(o => o.value === value)?.label ?? value
@@ -17,6 +17,18 @@ function labelOf<T extends string>(options: { value: T; label: string }[], value
 
 function heading(text: string): string {
   return `\n${text.toUpperCase()}\n${"-".repeat(text.length)}\n`
+}
+
+// Board-memo placeholders — a blank field reads as noise; a labeled gap
+// reads as a finding.
+function ownerOrMissing(owner: string): string {
+  return owner.trim() ? owner : "Missing owner"
+}
+function evidenceOrMissing(evidence: EvidenceTier): string {
+  return evidence === "none" ? "Missing evidence" : labelOf(EVIDENCE_TIER_OPTIONS, evidence)
+}
+function clarityOrUnclear(clarity: ResponsibilityClarity): string {
+  return clarity === "no_clear_owner" || clarity === "unknown" ? "Unclear responsibility" : labelOf(RESPONSIBILITY_CLARITY_OPTIONS, clarity)
 }
 
 export type ComputedResults = {
@@ -30,19 +42,38 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   const { audit_unit: u, decision_stages, chain_items } = c
   const { masterFunction: mf, confidence, contradiction, riskDashboard: risk } = computed
   const lines: string[] = []
+  const generatedOn = new Date().toISOString().slice(0, 10)
 
-  lines.push("CEO AI ACCOUNTABILITY CONSOLE — PRELIMINARY EXECUTIVE SCAN")
-  lines.push("Powered by the DDAT Evidence Standard")
-  lines.push(`Generated: ${new Date().toISOString().slice(0, 10)}`)
+  // ─── Title ───────────────────────────────────────────────────────────────
+  lines.push("CEO AI ACCOUNTABILITY CONSOLE")
+  lines.push("Preliminary Executive Scan")
   lines.push("")
-  lines.push(
-    "This preliminary scan does not measure private belief. It reviews how an AI-enabled decision system " +
-    "appears to distribute evaluation, responsibility, appealability, re-entry, and future possibility based " +
-    "on the information provided."
-  )
 
-  // 1. Audit Unit
-  lines.push(heading("1. Audit Unit"))
+  // ─── Metadata block ──────────────────────────────────────────────────────
+  lines.push(`Organization:          ${u.organization_name || "(not specified)"}`)
+  lines.push(`AI system:             ${u.ai_system_name || "(not specified)"}`)
+  lines.push(`Domain:                ${u.industry_domain || "(not specified)"}`)
+  lines.push(`Evaluated population:  ${u.who_is_evaluated || "(not specified)"}`)
+  lines.push(`Primary decision:      ${u.primary_decision || "(not specified)"}`)
+  lines.push(`Consequence:           ${labelOf(CONSEQUENCE_OPTIONS, u.consequence)}`)
+  lines.push(`Scan type:             ${labelOf(SCAN_BASIS_OPTIONS, u.scan_basis)}`)
+  lines.push(`Evidence confidence:   ${confidence.level} (${confidence.percent}%)`)
+  lines.push(`Generated on:          ${generatedOn}`)
+
+  // 1. Executive Summary
+  lines.push(heading("1. Executive Summary"))
+  lines.push(
+    "This preliminary scan reviews how the AI-enabled decision system described above appears to distribute " +
+    "evaluation, responsibility, appealability, re-entry, and future possibility. It does not measure private " +
+    "belief and does not provide legal, compliance, psychological, medical, or AI safety certification."
+  )
+  lines.push("")
+  lines.push(`Primary operational concern: ${derivePrimaryOperationalConcern(risk.riskDomains)}`)
+  lines.push(`Primary missing evidence: ${risk.primaryMissingEvidence[0] ?? "None — no stage or chain item is entirely without evidence."}`)
+  lines.push(`Recommended immediate action: ${risk.recommendedImmediateAction}`)
+
+  // 2. Audit Unit
+  lines.push(heading("2. Audit Unit"))
   lines.push(`Organization: ${u.organization_name || "(not specified)"}`)
   lines.push(`Role of respondent: ${labelOf(ROLE_OPTIONS, u.user_role)}`)
   lines.push(`AI system: ${u.ai_system_name || "(not specified)"}`)
@@ -52,14 +83,16 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   lines.push(`Consequence category: ${labelOf(CONSEQUENCE_OPTIONS, u.consequence)}`)
   lines.push(`Scan basis: ${labelOf(SCAN_BASIS_OPTIONS, u.scan_basis)}`)
 
-  // 2. Declared Function
-  lines.push(heading("2. Declared Function"))
-  lines.push(`Declared master function: ${labelOf(DECLARED_MASTER_FUNCTION_OPTIONS, mf.declared)}`)
-
-  // 3. Operational Master Function
-  lines.push(heading("3. Operational Master Function"))
-  lines.push(`Operational master function(s): ${mf.operational.join(", ")}`)
-  lines.push(`Master function contradiction risk: ${mf.contradictionRisk.toUpperCase()}`)
+  // 3. Declared vs Operational Master Function
+  lines.push(heading("3. Declared vs Operational Master Function"))
+  lines.push(`Declared function: ${labelOf(DECLARED_MASTER_FUNCTION_OPTIONS, mf.declared)}`)
+  lines.push(`Operational master function: ${mf.operational.join(", ")}`)
+  lines.push(`Contradiction risk: ${mf.contradictionRisk}`)
+  lines.push("")
+  lines.push(
+    "The operational master function is the function that appears to hold practical authority over the " +
+    "evaluated human, based on the answers and evidence provided."
+  )
 
   // 4. Accountability Chain Summary
   lines.push(heading("4. Accountability Chain Summary"))
@@ -68,8 +101,8 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
     const s = decision_stages[key]
     lines.push(
       `  - ${DECISION_STAGE_LABEL[key]}: exists=${labelOf(STAGE_EXISTS_OPTIONS, s.exists)}, ` +
-      `owner=${s.owner || "(not named)"}, evidence=${labelOf(EVIDENCE_TIER_OPTIONS, s.evidence)}, ` +
-      `responsibility=${labelOf(RESPONSIBILITY_CLARITY_OPTIONS, s.responsibility_clarity)}`
+      `owner=${ownerOrMissing(s.owner)}, evidence=${evidenceOrMissing(s.evidence)}, ` +
+      `responsibility=${clarityOrUnclear(s.responsibility_clarity)}`
     )
   })
   lines.push("")
@@ -77,16 +110,16 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   CHAIN_ITEM_ORDER.forEach(key => {
     const item = chain_items[key]
     lines.push(
-      `  - ${CHAIN_ITEM_LABEL[key]}: owner=${item.owner || "(not named)"}, ` +
-      `evidence=${labelOf(EVIDENCE_TIER_OPTIONS, item.evidence)}, ` +
-      `responsibility=${labelOf(RESPONSIBILITY_CLARITY_OPTIONS, item.responsibility_clarity)}` +
+      `  - ${CHAIN_ITEM_LABEL[key]}: owner=${ownerOrMissing(item.owner)}, ` +
+      `evidence=${evidenceOrMissing(item.evidence)}, ` +
+      `responsibility=${clarityOrUnclear(item.responsibility_clarity)}` +
       (item.missing_documentation ? " [documentation missing]" : "")
     )
   })
 
   // 5. Risk Summary
   lines.push(heading("5. Risk Summary"))
-  lines.push(`Preliminary risk: ${risk.preliminaryRisk.toFixed(1)}/4.0 — ${risk.preliminaryRiskCategory.toUpperCase()} (preliminary, evidence-dependent, unverified)`)
+  lines.push(`Preliminary risk: ${risk.preliminaryRisk.toFixed(1)}/4.0 — ${formatPreliminaryRisk(risk.preliminaryRiskCategory)}`)
   lines.push(`Risk domain average: ${risk.riskAverage.toFixed(2)}/4.0`)
   lines.push(`Positive capacity average: ${risk.capacityAverage.toFixed(2)}/4.0`)
   lines.push("Risk domains:")
@@ -100,20 +133,18 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
 
   // 6. Evidence Confidence
   lines.push(heading("6. Evidence Confidence"))
-  lines.push(`Evidence confidence: ${confidence.level.toUpperCase()} (${confidence.percent}% ceiling, separate from risk)`)
+  lines.push(`Evidence confidence: ${confidence.level} (${confidence.percent}%, separate from risk)`)
+  lines.push(`Strongest evidence type detected: ${labelOf(EVIDENCE_TIER_OPTIONS, confidence.strongestTier)}`)
   lines.push(confidence.explanation)
 
   // 7. Contradiction Findings
   lines.push(heading("7. Contradiction Findings"))
-  lines.push(`Contradiction index: ${contradiction.index.toUpperCase()}`)
-  lines.push("Declared governance position (assumed institutional narrative, tested below):")
-  contradiction.declaredGovernancePosition.forEach(p => lines.push(`  - ${p}`))
-  lines.push("")
-  if (contradiction.operationalGovernancePattern.length > 0) {
-    lines.push("Operational governance pattern (contradictions found):")
-    contradiction.operationalGovernancePattern.forEach(p => lines.push(`  - ${p}`))
+  lines.push(`Contradiction index: ${contradiction.index}`)
+  const violatedChecks = contradiction.checks.filter(ch => ch.violated)
+  if (violatedChecks.length > 0) {
+    violatedChecks.forEach(ch => lines.push(`  - ${ch.plainFinding}`))
   } else {
-    lines.push("No contradictions were found between the assumed governance narrative and the recorded operational structure.")
+    lines.push(NO_CONTRADICTION_TEXT)
   }
 
   // 8. Missing Evidence
@@ -141,7 +172,7 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   ].filter(e => e.clarity === "no_clear_owner" || e.clarity === "unknown")
   if (gapEntries.length > 0) {
     lines.push("Stages/chain items without a clear owner:")
-    gapEntries.forEach(e => lines.push(`  - ${e.label} (${labelOf(RESPONSIBILITY_CLARITY_OPTIONS, e.clarity)})`))
+    gapEntries.forEach(e => lines.push(`  - ${e.label} (Unclear responsibility)`))
   } else {
     lines.push("Every stage and chain item has at least a named owner.")
   }

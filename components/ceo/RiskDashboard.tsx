@@ -2,8 +2,7 @@
 
 import { useMemo } from "react"
 import { useCEOConsoleStore } from "@/lib/ceo-console-store"
-import { deriveMasterFunction, computeEvidenceConfidence, computeContradictionIndex, computeRiskDashboard } from "@/lib/scoring"
-import { DECLARED_MASTER_FUNCTION_OPTIONS } from "@/lib/questions"
+import { deriveMasterFunction, computeEvidenceConfidence, computeContradictionIndex, computeRiskDashboard, formatPreliminaryRisk } from "@/lib/scoring"
 import { PageContainer, SectionTitle, SectionBanner, PrimaryButton, SecondaryButton, Card } from "@/components/evidence/shared"
 
 function Row({ label, value, max = 4 }: { label: string; value: number; max?: number }) {
@@ -36,8 +35,6 @@ export function RiskDashboard() {
     [audit_unit, decision_stages, chain_items, mf, master_function.answers, confidence, contradiction]
   )
 
-  const declaredLabel = DECLARED_MASTER_FUNCTION_OPTIONS.find(o => o.value === mf.declared)?.label ?? mf.declared
-
   return (
     <PageContainer>
       <SectionTitle>Step 7 — Risk Dashboard</SectionTitle>
@@ -50,19 +47,19 @@ export function RiskDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
         <Card>
           <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">1. Overall Preliminary Risk</p>
-          <p className="text-lg font-mono font-bold text-gray-900">{risk.preliminaryRisk.toFixed(1)}/4.0 — {risk.preliminaryRiskCategory}</p>
+          <p className="text-lg font-mono font-bold text-gray-900">{risk.preliminaryRisk.toFixed(1)}/4.0 — {formatPreliminaryRisk(risk.preliminaryRiskCategory)}</p>
         </Card>
         <Card>
           <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">2. Evidence Confidence</p>
           <p className="text-lg font-mono font-bold text-gray-900">{confidence.level} ({confidence.percent}%)</p>
         </Card>
         <Card>
-          <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">3. Declared Master Function</p>
-          <p className="text-sm text-gray-900">{declaredLabel}</p>
+          <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">3. Operational Master Function</p>
+          <p className="text-sm text-gray-900">{mf.operational.join(", ")}</p>
         </Card>
         <Card>
-          <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">4. Operational Master Function</p>
-          <p className="text-sm text-gray-900">{mf.operational.join(", ")}</p>
+          <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">4. Contradiction Index</p>
+          <p className="text-lg font-mono font-bold text-gray-900">{contradiction.index}</p>
         </Card>
         <Card>
           <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">5. Responsibility Clarity</p>
@@ -84,8 +81,8 @@ export function RiskDashboard() {
           <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">9. Primary Missing Evidence</p>
           {risk.primaryMissingEvidence.length > 0 ? (
             <ul className="space-y-0.5">
-              {risk.primaryMissingEvidence.map(m => (
-                <li key={m} className="text-xs text-gray-700">— {m}</li>
+              {risk.primaryMissingEvidence.map((m, i) => (
+                <li key={`${m}-${i}`} className="text-xs text-gray-700">— {m}</li>
               ))}
             </ul>
           ) : (

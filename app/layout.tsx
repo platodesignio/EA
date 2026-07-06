@@ -1,8 +1,9 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { EvidenceStoreProvider } from "@/lib/evidence-store"
 import { CEOConsoleStoreProvider } from "@/lib/ceo-console-store"
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,9 +18,16 @@ const mono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ea-sandy.vercel.app"),
   title: "CEO AI Accountability Console",
   description:
     "Powered by the DDAT Evidence Standard. An executive governance console for mapping how AI-enabled decision systems evaluate, rank, predict, classify, exclude, allow appeal, allow re-entry, and distribute responsibility. Audit the institution, not the person.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "EA Console",
+    statusBarStyle: "black-translucent",
+  },
   openGraph: {
     title: "CEO AI Accountability Console",
     description:
@@ -35,10 +43,18 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body>
+        <ServiceWorkerRegistration />
         <EvidenceStoreProvider>
           <CEOConsoleStoreProvider>{children}</CEOConsoleStoreProvider>
         </EvidenceStoreProvider>
