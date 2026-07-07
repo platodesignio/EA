@@ -19,25 +19,25 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ea-sandy.vercel.app"),
-  title: "CEO AI Accountability Console",
+  title: "FED-DLR Audit",
   description:
-    "Powered by the DDAT Evidence Standard. An executive governance console for mapping how AI-enabled decision systems evaluate, rank, predict, classify, exclude, allow appeal, allow re-entry, and distribute responsibility. Audit the institution, not the person.",
+    "FED-DLR Audit — powered by the DDAT Evidence Standard. An executive governance console for mapping how AI-enabled decision systems evaluate, rank, predict, classify, exclude, allow appeal, allow re-entry, and distribute responsibility. Audit the institution, not the person.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "EA Console",
+    title: "FED-DLR",
     statusBarStyle: "black-translucent",
   },
   openGraph: {
-    title: "CEO AI Accountability Console",
+    title: "FED-DLR Audit",
     description:
       "Powered by the DDAT Evidence Standard. Audit the institution, not the person. We do not measure private belief — we audit institutionalized commitments.",
-    siteName: "CEO AI Accountability Console",
+    siteName: "FED-DLR Audit",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CEO AI Accountability Console",
+    title: "FED-DLR Audit",
     description:
       "Powered by the DDAT Evidence Standard. A preliminary executive governance tool for mapping accountability risk in AI-enabled decision systems.",
   },

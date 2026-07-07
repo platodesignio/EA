@@ -3,8 +3,8 @@ import Link from "next/link"
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white px-6 py-16 max-w-2xl mx-auto">
-      <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-400 mb-6">
-        <Link href="/" className="hover:text-gray-700 transition-colors">← CEO AI Accountability Console</Link>
+      <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-500 mb-6">
+        <Link href="/" className="hover:text-gray-700 transition-colors">← FED-DLR Audit</Link>
       </p>
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Request an Institutional Audit</h1>
       <p className="text-sm text-gray-600 leading-relaxed mb-8 max-w-xl">
@@ -17,7 +17,7 @@ export default function ContactPage() {
       >
         Send Enquiry
       </a>
-      <p className="text-[10px] text-gray-400 leading-relaxed mt-12 border-t border-gray-100 pt-6 max-w-xl">
+      <p className="text-[10px] text-gray-500 leading-relaxed mt-12 border-t border-gray-100 pt-6 max-w-xl">
         This tool does not provide legal advice, compliance certification, psychological diagnosis, medical
         assessment, or formal AI safety certification. It is a preliminary executive governance tool for
         mapping accountability risks in AI-enabled decision systems.

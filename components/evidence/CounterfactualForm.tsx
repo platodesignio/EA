@@ -87,7 +87,7 @@ export function CounterfactualForm() {
       </div>
 
       {tests.length === 0 && (
-        <p className="text-xs text-gray-400 font-mono py-6 border border-dashed border-gray-200 text-center">
+        <p className="text-xs text-gray-500 font-mono py-6 border border-dashed border-gray-200 text-center">
           No counterfactual tests yet. Add a test to examine which variables drive access closure.
         </p>
       )}
@@ -100,12 +100,12 @@ export function CounterfactualForm() {
               onClick={() => setExpanded(expanded === t.id ? null : t.id)}
             >
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-mono text-gray-400">Test {i + 1}</span>
+                <span className="text-[10px] font-mono text-gray-500">Test {i + 1}</span>
                 <span className="text-sm text-gray-900">
                   {t.changed_variable || "(unnamed variable)"}
                 </span>
                 {t.baseline_outcome && t.modified_outcome && (
-                  <span className="text-[10px] font-mono text-gray-400">
+                  <span className="text-[10px] font-mono text-gray-500">
                     {t.baseline_outcome} → {t.modified_outcome}
                   </span>
                 )}
@@ -113,7 +113,7 @@ export function CounterfactualForm() {
                   <span className={`text-[10px] font-mono border px-1.5 py-0.5 ${
                     t.closure_delta === 3 ? "border-gray-900 text-gray-900" :
                     t.closure_delta === 2 ? "border-gray-600 text-gray-600" :
-                    "border-gray-300 text-gray-400"
+                    "border-gray-300 text-gray-500"
                   }`}>
                     Δ{t.closure_delta}
                   </span>

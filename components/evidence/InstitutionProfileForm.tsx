@@ -139,7 +139,7 @@ export function InstitutionProfileForm() {
           placeholder="Quote or paraphrase the institution's own stated purpose for this system, e.g. 'to support fair and consistent evaluation of all applicants'."
           rows={3}
         />
-        <p className="text-[10px] text-gray-400 mt-2 font-mono">
+        <p className="text-[10px] text-gray-500 mt-2 font-mono">
           This is the institution&apos;s declared function. It is compared against the operational function derived from evidence recorded later in this audit — the audit does not assume the two match.
         </p>
       </FieldGroup>
@@ -168,7 +168,7 @@ export function InstitutionProfileForm() {
         </div>
 
         {claims.length === 0 && (
-          <p className="text-xs text-gray-400 font-mono py-4 border border-dashed border-gray-200 text-center">
+          <p className="text-xs text-gray-500 font-mono py-4 border border-dashed border-gray-200 text-center">
             No governance claims recorded yet.
           </p>
         )}

@@ -69,9 +69,9 @@ export default function Page() {
         <div className="border-b border-gray-200 bg-white">
           <button
             onClick={() => setView("console")}
-            className="block px-6 py-2 text-[10px] font-mono text-gray-400 hover:text-gray-700 transition-colors uppercase tracking-wider"
+            className="block px-6 py-2 text-[10px] font-mono text-gray-500 hover:text-gray-700 transition-colors uppercase tracking-wider"
           >
-            ← Back to CEO AI Accountability Console
+            ← Back to FED-DLR Audit
           </button>
         </div>
         <EvidenceNav />

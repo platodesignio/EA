@@ -51,7 +51,7 @@ export function ContestabilityForm() {
             options={SPECIFICITY_OPTIONS}
             label="Explanation Specificity"
           />
-          <p className="text-[10px] text-gray-400 mt-2 font-mono">
+          <p className="text-[10px] text-gray-500 mt-2 font-mono">
             0 = No explanation provided · 1 = Generic ("your application was unsuccessful") ·
             2 = Category-level ("flagged for administrative anomalies") ·
             3 = Actionable and specific (names variables, indicates what could change)

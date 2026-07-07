@@ -48,7 +48,7 @@ export function ExecutiveReport() {
   // survives outside this browser tab's storage — important since the app
   // has no backend and no login.
   function downloadReport() {
-    const fileName = `ceo-ai-accountability-scan-${c.audit_unit.organization_name.trim().replace(/\s+/g, "-").toLowerCase() || "report"}.txt`
+    const fileName = `fed-dlr-audit-scan-${c.audit_unit.organization_name.trim().replace(/\s+/g, "-").toLowerCase() || "report"}.txt`
     const blob = new Blob([report], { type: "text/plain" })
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
@@ -59,11 +59,11 @@ export function ExecutiveReport() {
   }
 
   async function shareReport() {
-    const fileName = "ceo-ai-accountability-scan.txt"
+    const fileName = "fed-dlr-audit-scan.txt"
     const file = new File([report], fileName, { type: "text/plain" })
     if (navigator.canShare?.({ files: [file] })) {
       try {
-        await navigator.share({ files: [file], title: "CEO AI Accountability Console — Preliminary Executive Scan" })
+        await navigator.share({ files: [file], title: "FED-DLR Audit — Preliminary Executive Scan" })
         return
       } catch {
         // user cancelled or share failed — fall through to download

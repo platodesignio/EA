@@ -70,19 +70,19 @@ export function EvidenceSourcesForm() {
       {sources.length > 0 && (
         <div className="border border-gray-200 p-4 mb-8 grid grid-cols-3 gap-4">
           <div>
-            <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">Sources</p>
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Sources</p>
             <p className="text-xl font-mono font-bold text-gray-900">{sources.length}</p>
           </div>
           <div>
-            <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">Highest Level</p>
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Highest Level</p>
             <p className="text-xl font-mono font-bold text-gray-900">{maxLevel}</p>
             <p className="text-[10px] text-gray-500">{evidenceLevelLabel(maxLevel)}</p>
           </div>
           {minLevel !== null && minLevel !== maxLevel && (
             <div>
-              <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">Weakest Source</p>
-              <p className="text-xl font-mono font-bold text-gray-400">{minLevel}</p>
-              <p className="text-[10px] text-gray-400">{evidenceLevelLabel(minLevel)}</p>
+              <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Weakest Source</p>
+              <p className="text-xl font-mono font-bold text-gray-500">{minLevel}</p>
+              <p className="text-[10px] text-gray-500">{evidenceLevelLabel(minLevel)}</p>
             </div>
           )}
         </div>
@@ -114,7 +114,7 @@ export function EvidenceSourcesForm() {
       </div>
 
       {sources.length === 0 && (
-        <p className="text-xs text-gray-400 font-mono py-6 border border-dashed border-gray-200 text-center">
+        <p className="text-xs text-gray-500 font-mono py-6 border border-dashed border-gray-200 text-center">
           No evidence sources yet. Add at least one to ground the audit judgment.
         </p>
       )}
@@ -131,7 +131,7 @@ export function EvidenceSourcesForm() {
                   Level {s.evidence_level}
                 </span>
                 <span className="text-sm text-gray-900">{s.title || "(untitled source)"}</span>
-                <span className="text-[10px] text-gray-400">{s.source_type}</span>
+                <span className="text-[10px] text-gray-500">{s.source_type}</span>
               </div>
               <span className="text-gray-300 text-xs">{expanded === s.id ? "▲" : "▼"}</span>
             </div>

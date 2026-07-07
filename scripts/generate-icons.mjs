@@ -53,7 +53,7 @@ async function render({ size, padding }) {
             letterSpacing: -1,
           },
         },
-        "EA"
+        "FD"
       ),
       React.createElement(
         "div",

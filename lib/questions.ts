@@ -1,4 +1,4 @@
-// ─── CEO AI Accountability Console — Question & Option Data ────────────────
+// ─── FED-DLR Audit — Question & Option Data ────────────────
 // All static labels and option lists live here, separate from scoring logic
 // (lib/scoring.ts) and state (lib/ceo-console-store.tsx).
 

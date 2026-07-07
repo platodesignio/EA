@@ -84,7 +84,7 @@ export function ConsoleNav({ onViewAuditLogic }: { onViewAuditLogic: () => void 
           onClick={() => dispatch({ type: "SET_STEP", payload: 0 })}
           className="font-mono text-[11px] font-bold tracking-[0.15em] text-gray-900 hover:text-gray-600 transition-colors uppercase whitespace-nowrap shrink-0"
         >
-          CEO AI ACCOUNTABILITY CONSOLE
+          FED-DLR AUDIT
         </button>
 
         <div className="flex items-center gap-0.5 overflow-x-auto min-w-0">

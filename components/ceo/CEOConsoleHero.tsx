@@ -17,9 +17,12 @@ export function CEOConsoleHero({ onViewAuditLogic }: { onViewAuditLogic: () => v
       <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-500 uppercase mb-3">
         Powered by the DDAT Evidence Standard
       </p>
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-3">
-        CEO AI Accountability Console
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-1">
+        FED-DLR Audit
       </h1>
+      <p className="text-xs font-mono text-gray-500 uppercase tracking-wide mb-3">
+        CEO AI Accountability Console
+      </p>
       <p className="text-lg text-gray-800 leading-snug max-w-2xl mb-3">
         Can your organization account for the future your AI system creates?
       </p>

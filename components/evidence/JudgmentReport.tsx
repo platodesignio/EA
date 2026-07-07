@@ -92,7 +92,7 @@ export function JudgmentReport() {
 
       {/* ─── Evidence Confidence — kept separate from risk ───────── */}
       <div className={`border ${CONFIDENCE_BORDER[judgment.confidence.label]} p-4 mb-8`}>
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-2">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
           Evidence Confidence — separate from risk
         </p>
         <p className="text-[13px] font-mono font-bold text-gray-900 uppercase tracking-wide mb-2">
@@ -122,16 +122,16 @@ export function JudgmentReport() {
 
       {/* ─── Declared vs. Operational Master Function ────────────── */}
       <Card className="mb-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Declared vs. Operational Master Function
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
           <div>
-            <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">Declared</p>
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Declared</p>
             <p className="text-sm text-gray-900 leading-relaxed">{judgment.masterFunction.declared}</p>
           </div>
           <div>
-            <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">Operational</p>
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Operational</p>
             <p className="text-sm text-gray-900 leading-relaxed">{judgment.masterFunction.operational}</p>
           </div>
         </div>
@@ -145,7 +145,7 @@ export function JudgmentReport() {
       <div className={`border-l-4 ${style.border} pl-5 py-2 mb-8`}>
         <div className="flex items-start gap-4 mb-3">
           <div>
-            <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">
+            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">
               DDAT Judgment
             </p>
             <div className="flex items-center gap-3">
@@ -162,7 +162,7 @@ export function JudgmentReport() {
 
       {/* ─── Scores ──────────────────────────────────────────────── */}
       <Card className="mb-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Scores
         </p>
 
@@ -189,7 +189,7 @@ export function JudgmentReport() {
       {/* ─── Reasoning Path ─────────────────────────────────────── */}
       {judgment.reasoningPath.length > 0 && (
         <div className="mb-8">
-          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
             Reasoning Path
           </p>
           <div className="space-y-2">
@@ -206,7 +206,7 @@ export function JudgmentReport() {
       {/* ─── Improvement Requirements ───────────────────────────── */}
       {judgment.improvementRequirements.length > 0 && (
         <div className="mb-8">
-          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
             Improvement Requirements
           </p>
           <ul className="space-y-1.5">
@@ -223,7 +223,7 @@ export function JudgmentReport() {
       {/* ─── Evidence Gaps ──────────────────────────────────────── */}
       {judgment.evidenceGaps.length > 0 && (
         <div className="mb-8">
-          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
             Evidence Gaps
           </p>
           <ul className="space-y-1.5">
@@ -239,7 +239,7 @@ export function JudgmentReport() {
 
       {/* ─── Contradiction Findings ─────────────────────────────── */}
       <div className="mb-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
           Contradiction Findings
         </p>
         {judgment.contradictions.length > 0 ? (
@@ -250,12 +250,12 @@ export function JudgmentReport() {
                   <span className="text-[10px] font-mono font-bold border border-gray-900 text-gray-900 px-1.5 py-0.5 uppercase">
                     {cx.severity}
                   </span>
-                  <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">
                     {governanceClaimCategoryLabel(cx.category)}
                   </span>
                 </div>
-                <p className="text-sm text-gray-900 mb-1"><span className="text-gray-400">Declared:</span> {cx.claimText}</p>
-                <p className="text-sm text-gray-700"><span className="text-gray-400">Operational finding:</span> {cx.operationalFinding}</p>
+                <p className="text-sm text-gray-900 mb-1"><span className="text-gray-500">Declared:</span> {cx.claimText}</p>
+                <p className="text-sm text-gray-700"><span className="text-gray-500">Operational finding:</span> {cx.operationalFinding}</p>
               </div>
             ))}
           </div>
@@ -268,7 +268,7 @@ export function JudgmentReport() {
 
       {/* ─── Report Export ──────────────────────────────────────── */}
       <div className="border-t border-gray-200 pt-6 mb-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Export Audit Report
         </p>
         <div className="flex gap-3 mb-4">
@@ -303,7 +303,7 @@ export function JudgmentReport() {
         </SecondaryButton>
         <button
           onClick={() => { if (confirm("Start a new audit? Current data will be saved in your browser.")) dispatch({ type: "SET_STEP", payload: 0 }) }}
-          className="text-[11px] font-mono text-gray-400 hover:text-gray-700 transition-colors"
+          className="text-[11px] font-mono text-gray-500 hover:text-gray-700 transition-colors"
         >
           ← Return to Overview
         </button>

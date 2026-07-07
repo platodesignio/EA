@@ -131,7 +131,7 @@ export function ClassificationForm() {
         </div>
 
         {cm.input_variables.length === 0 && (
-          <p className="text-xs text-gray-400 font-mono py-4 border border-dashed border-gray-200 text-center">
+          <p className="text-xs text-gray-500 font-mono py-4 border border-dashed border-gray-200 text-center">
             No input variables documented yet.
           </p>
         )}
@@ -144,7 +144,7 @@ export function ClassificationForm() {
                 onClick={() => setExpandedVar(expandedVar === v.id ? null : v.id)}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] font-mono text-gray-400 border border-gray-200 px-1.5 py-0.5">
+                  <span className="text-[10px] font-mono text-gray-500 border border-gray-200 px-1.5 py-0.5">
                     {v.category}
                   </span>
                   <span className="text-sm text-gray-900">{v.name || "(unnamed variable)"}</span>
@@ -243,7 +243,7 @@ export function ClassificationForm() {
         </div>
 
         {closures.length === 0 && (
-          <p className="text-xs text-gray-400 font-mono py-4 border border-dashed border-gray-200 text-center">
+          <p className="text-xs text-gray-500 font-mono py-4 border border-dashed border-gray-200 text-center">
             No closures documented yet.
           </p>
         )}
@@ -259,13 +259,13 @@ export function ClassificationForm() {
                   <span className={`text-[10px] font-mono border px-1.5 py-0.5 ${
                     cl.severity === 3 ? "border-gray-900 text-gray-900" :
                     cl.severity === 2 ? "border-gray-600 text-gray-600" :
-                    "border-gray-300 text-gray-400"
+                    "border-gray-300 text-gray-500"
                   }`}>
                     severity {cl.severity}
                   </span>
                   <span className="text-sm text-gray-900">{cl.decision_result}</span>
                   {cl.access_closed.length > 0 && (
-                    <span className="text-xs text-gray-400">→ {cl.access_closed.join(", ")}</span>
+                    <span className="text-xs text-gray-500">→ {cl.access_closed.join(", ")}</span>
                   )}
                 </div>
                 <span className="text-gray-300 text-xs">{expandedClosure === cl.id ? "▲" : "▼"}</span>

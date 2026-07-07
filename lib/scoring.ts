@@ -1,4 +1,4 @@
-// ─── CEO AI Accountability Console — Scoring Logic ─────────────────────────
+// ─── FED-DLR Audit — Scoring Logic ─────────────────────────
 // Pure, deterministic functions only. Nothing here touches state or the DOM.
 //
 // Three outputs are kept structurally separate and are never merged into a

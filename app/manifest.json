@@ -1,6 +1,6 @@
 {
-  "name": "CEO AI Accountability Console",
-  "short_name": "EA Console",
+  "name": "FED-DLR Audit",
+  "short_name": "FED-DLR",
   "description": "Powered by the DDAT Evidence Standard. Audit the institution, not the person.",
   "start_url": "/",
   "scope": "/",

@@ -1,4 +1,4 @@
-// ─── CEO AI Accountability Console — Executive Report Generator ───────────
+// ─── FED-DLR Audit — Executive Report Generator ───────────
 // Produces plain text formatted for direct use in an executive memo: short
 // headers, no markup that would look strange pasted into an email or Word
 // document, and no gamified language.
@@ -45,8 +45,8 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   const generatedOn = new Date().toISOString().slice(0, 10)
 
   // ─── Title ───────────────────────────────────────────────────────────────
-  lines.push("CEO AI ACCOUNTABILITY CONSOLE")
-  lines.push("Preliminary Executive Scan")
+  lines.push("FED-DLR AUDIT")
+  lines.push("FED-DLR Audit — Preliminary Executive Scan")
   lines.push("")
 
   // ─── Metadata block ──────────────────────────────────────────────────────

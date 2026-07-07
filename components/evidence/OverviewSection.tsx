@@ -11,7 +11,7 @@ export function OverviewSection() {
     <PageContainer>
       {/* Title */}
       <div className="mb-12">
-        <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-400 uppercase mb-3">
+        <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-500 uppercase mb-3">
           DDAT Evidence Simulator
         </p>
         <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-4">
@@ -66,7 +66,7 @@ export function OverviewSection() {
           },
         ].map(col => (
           <div key={col.title}>
-            <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+            <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
               {col.title}
             </p>
             <ul className="space-y-1.5">
@@ -83,7 +83,7 @@ export function OverviewSection() {
 
       {/* Audit flow */}
       <div className="mb-12">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Audit flow
         </p>
         <div className="flex flex-wrap gap-2 text-[11px] font-mono text-gray-600">
@@ -116,7 +116,7 @@ export function OverviewSection() {
 
       {/* Sample cases */}
       <div>
-        <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-400 uppercase mb-5">
+        <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-500 uppercase mb-5">
           Sample Audit Cases
         </p>
         <p className="text-xs text-gray-500 mb-5 font-mono border border-gray-200 px-3 py-2">
@@ -127,7 +127,7 @@ export function OverviewSection() {
             <Card key={c.id} className="hover:border-gray-400 transition-colors">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1">
+                  <p className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">
                     {c.institution_profile.institution_type.replace(/_/g, " ")}
                   </p>
                   <p className="text-sm font-medium text-gray-900 mb-1">{c.institution_profile.system_name}</p>
@@ -149,7 +149,7 @@ export function OverviewSection() {
 
       {/* About */}
       <div className="mt-16 pt-8 border-t border-gray-100">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
           About DDAT
         </p>
         <p className="text-xs text-gray-500 leading-relaxed max-w-2xl">

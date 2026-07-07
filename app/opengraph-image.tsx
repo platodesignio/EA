@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 export const dynamic = "force-static"
-export const alt = "CEO AI Accountability Console"
+export const alt = "FED-DLR Audit"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -44,26 +44,14 @@ export default function OGImage() {
             <div
               style={{
                 display: "flex",
-                fontSize: 64,
+                fontSize: 72,
                 fontWeight: 700,
                 color: "#000000",
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
               }}
             >
-              CEO AI Accountability
-            </div>
-            <div
-              style={{
-                display: "flex",
-                fontSize: 64,
-                fontWeight: 700,
-                color: "#000000",
-                lineHeight: 1.1,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Console
+              FED-DLR Audit
             </div>
           </div>
 

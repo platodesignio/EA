@@ -1,4 +1,4 @@
-// ─── CEO AI Accountability Console — Type Definitions ──────────────────────
+// ─── FED-DLR Audit — Type Definitions ──────────────────────
 // Powered by the DDAT Evidence Standard. This tool audits institutions, not
 // persons: every type below describes a decision system's declared and
 // operational structure, never a person's belief, character, or worth.
