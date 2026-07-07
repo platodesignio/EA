@@ -68,7 +68,11 @@ export function MasterFunctionDetection() {
           </div>
         </div>
         <p className="text-[11px] font-mono font-bold text-gray-900 uppercase tracking-wide mb-3">
-          Contradiction Risk: {result.contradictionRisk}
+          Function Mismatch Risk: {result.functionMismatchRisk}
+        </p>
+        <p className="text-[10px] text-gray-400 leading-relaxed mb-3">
+          This is separate from the Contradiction Index in Step 6, which tests different claims (human
+          oversight, transparency, fairness) against the operational structure.
         </p>
         <p className="text-xs text-gray-500 leading-relaxed">
           The operational master function is the function that appears to hold practical authority over the

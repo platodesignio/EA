@@ -87,11 +87,12 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
   lines.push(heading("3. Declared vs Operational Master Function"))
   lines.push(`Declared function: ${labelOf(DECLARED_MASTER_FUNCTION_OPTIONS, mf.declared)}`)
   lines.push(`Operational master function: ${mf.operational.join(", ")}`)
-  lines.push(`Contradiction risk: ${mf.contradictionRisk}`)
+  lines.push(`Function mismatch risk: ${mf.functionMismatchRisk}`)
   lines.push("")
   lines.push(
     "The operational master function is the function that appears to hold practical authority over the " +
-    "evaluated human, based on the answers and evidence provided."
+    "evaluated human, based on the answers and evidence provided. This mismatch risk is separate from the " +
+    "Contradiction Index in Section 7, which tests different claims against operational structure."
   )
 
   // 4. Accountability Chain Summary

@@ -115,16 +115,16 @@ export function deriveMasterFunction(
   const weakOverride = overrideValue <= 1
   const accessAffected = scores["Access Control"] >= 2 || scores["Automated Exclusion"] >= 2 || scores["Ranking"] >= 2
 
-  let contradictionRisk: RiskLevel
+  let functionMismatchRisk: RiskLevel
   if (declaredMismatch && strongOperational && weakOverride && accessAffected) {
-    contradictionRisk = "High"
+    functionMismatchRisk = "High"
   } else if ((declaredMismatch || strongOperational) && (weakOverride || accessAffected)) {
-    contradictionRisk = "Medium"
+    functionMismatchRisk = "Medium"
   } else {
-    contradictionRisk = "Low"
+    functionMismatchRisk = "Low"
   }
 
-  return { declared, operational, operationalScores: scores, contradictionRisk }
+  return { declared, operational, operationalScores: scores, functionMismatchRisk }
 }
 
 // ─── Section 5 — Evidence Confidence ───────────────────────────────────────
@@ -463,7 +463,7 @@ export function computeRiskDashboard(
   })()
   const directionalLegitimacy = (() => {
     let base = contradiction.index === "Low" ? 4 : contradiction.index === "Medium" ? 2 : 0
-    if (masterFunction.contradictionRisk === "High") base = Math.max(0, base - 1)
+    if (masterFunction.functionMismatchRisk === "High") base = Math.max(0, base - 1)
     return clamp04(base)
   })()
 

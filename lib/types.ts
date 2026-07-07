@@ -133,7 +133,12 @@ export type MasterFunctionResult = {
   declared: DeclaredMasterFunction
   operational: OperationalFunctionLabel[] // top 1–3, highest signal first
   operationalScores: Record<OperationalFunctionLabel, number> // 0–4 each
-  contradictionRisk: RiskLevel
+  // Deliberately not named "contradictionRisk" — that name collides with the
+  // unrelated Contradiction Index (Section 6/7, computeContradictionIndex),
+  // which tests declared governance claims, not this declared-vs-operational
+  // function comparison. Two similarly-named but methodologically distinct
+  // metrics in one report is a real source of reader confusion.
+  functionMismatchRisk: RiskLevel
 }
 
 // ─── Section 4 — Ontological Accountability Chain ──────────────────────────

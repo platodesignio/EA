@@ -148,6 +148,25 @@ export function Toggle({
   )
 }
 
+// ─── Roving-tabindex radiogroup keyboard handling ─────────────────────────────
+// Shared by ScoreSelect and ChoiceGroup: arrow keys move both focus and
+// selection, Home/End jump to the ends — the behavior screen reader users
+// expect from role="radiogroup", which a bare row of <button> elements
+// does not provide on its own.
+function useRovingRadioGroup<T extends string | number>(options: T[], value: T, onChange: (v: T) => void) {
+  return (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const i = options.indexOf(value)
+    let next = i
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % options.length
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + options.length) % options.length
+    else if (e.key === "Home") next = 0
+    else if (e.key === "End") next = options.length - 1
+    else return
+    e.preventDefault()
+    onChange(options[next])
+  }
+}
+
 // ─── ScoreSelect ──────────────────────────────────────────────────────────────
 export function ScoreSelect({
   value,
@@ -160,24 +179,32 @@ export function ScoreSelect({
   options: { value: 0 | 1 | 2 | 3; label: string }[]
   label?: string
 }) {
+  const onKeyDown = useRovingRadioGroup(options.map(o => o.value), value, onChange)
+
   return (
     <div>
       {label && <Label>{label}</Label>}
-      <div className="flex gap-2 flex-wrap">
-        {options.map(o => (
-          <button
-            key={o.value}
-            type="button"
-            onClick={() => onChange(o.value)}
-            className={`px-3 py-1.5 text-[11px] font-mono border transition-colors ${
-              value === o.value
-                ? "bg-gray-900 text-white border-gray-900"
-                : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-            }`}
-          >
-            {o.value} — {o.label}
-          </button>
-        ))}
+      <div role="radiogroup" aria-label={label} onKeyDown={onKeyDown} className="flex gap-2 flex-wrap">
+        {options.map(o => {
+          const selected = value === o.value
+          return (
+            <button
+              key={o.value}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => onChange(o.value)}
+              className={`px-3 py-1.5 text-[11px] font-mono border transition-colors ${
+                selected
+                  ? "bg-gray-900 text-white border-gray-900"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+              }`}
+            >
+              {o.value} — {o.label}
+            </button>
+          )
+        })}
       </div>
     </div>
   )
@@ -197,24 +224,32 @@ export function ChoiceGroup<T extends string>({
   label?: string
   hint?: string
 }) {
+  const onKeyDown = useRovingRadioGroup(options.map(o => o.value), value, onChange)
+
   return (
     <div>
       {label && <Label hint={hint}>{label}</Label>}
-      <div className="flex gap-2 flex-wrap">
-        {options.map(o => (
-          <button
-            key={o.value}
-            type="button"
-            onClick={() => onChange(o.value)}
-            className={`px-2.5 py-1.5 text-[11px] font-mono border transition-colors ${
-              value === o.value
-                ? "bg-gray-900 text-white border-gray-900"
-                : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
-            }`}
-          >
-            {o.label}
-          </button>
-        ))}
+      <div role="radiogroup" aria-label={label} onKeyDown={onKeyDown} className="flex gap-2 flex-wrap">
+        {options.map(o => {
+          const selected = value === o.value
+          return (
+            <button
+              key={o.value}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => onChange(o.value)}
+              className={`px-2.5 py-1.5 text-[11px] font-mono border transition-colors ${
+                selected
+                  ? "bg-gray-900 text-white border-gray-900"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-400"
+              }`}
+            >
+              {o.label}
+            </button>
+          )
+        })}
       </div>
     </div>
   )
