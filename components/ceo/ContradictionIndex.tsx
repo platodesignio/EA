@@ -2,7 +2,7 @@
 
 import { useMemo } from "react"
 import { useCEOConsoleStore } from "@/lib/ceo-console-store"
-import { deriveMasterFunction, computeContradictionIndex, NO_CONTRADICTION_TEXT } from "@/lib/scoring"
+import { deriveMasterFunction, computeContradictionIndex, NO_CONTRADICTION_TEXT, ASSUMED_CLAIMS_DISCLOSURE } from "@/lib/scoring"
 import { PageContainer, SectionTitle, SectionBanner, PrimaryButton, SecondaryButton, Card } from "@/components/evidence/shared"
 
 const INDEX_BORDER: Record<string, string> = {
@@ -45,10 +45,11 @@ export function ContradictionIndex() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div>
           <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
-            Declared Governance Position
+            Assumed Institutional Position — Not Collected
           </p>
+          <p className="text-[11px] text-gray-400 leading-relaxed mb-3">{ASSUMED_CLAIMS_DISCLOSURE}</p>
           <ul className="space-y-1.5">
-            {contradiction.declaredGovernancePosition.map((p, i) => (
+            {contradiction.assumedGovernancePosition.map((p, i) => (
               <li key={i} className="flex gap-2 text-sm text-gray-700">
                 <span className="text-gray-300 shrink-0">—</span>
                 <span>{p}</span>

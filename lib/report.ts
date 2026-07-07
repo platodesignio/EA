@@ -9,7 +9,7 @@ import {
   DECISION_STAGE_ORDER, DECISION_STAGE_LABEL, STAGE_EXISTS_OPTIONS, EVIDENCE_TIER_OPTIONS, RESPONSIBILITY_CLARITY_OPTIONS,
   DECLARED_MASTER_FUNCTION_OPTIONS, CHAIN_ITEM_ORDER, CHAIN_ITEM_LABEL,
 } from "./questions"
-import { deriveRecommendedNextSteps, derivePrimaryOperationalConcern, formatPreliminaryRisk, NO_CONTRADICTION_TEXT } from "./scoring"
+import { deriveRecommendedNextSteps, derivePrimaryOperationalConcern, formatPreliminaryRisk, NO_CONTRADICTION_TEXT, ASSUMED_CLAIMS_DISCLOSURE, RISK_SCORE_METHOD_NOTE } from "./scoring"
 
 function labelOf<T extends string>(options: { value: T; label: string }[], value: T): string {
   return options.find(o => o.value === value)?.label ?? value
@@ -119,6 +119,8 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
 
   // 5. Risk Summary
   lines.push(heading("5. Risk Summary"))
+  lines.push(RISK_SCORE_METHOD_NOTE)
+  lines.push("")
   lines.push(`Preliminary risk: ${risk.preliminaryRisk.toFixed(1)}/4.0 — ${formatPreliminaryRisk(risk.preliminaryRiskCategory)}`)
   lines.push(`Risk domain average: ${risk.riskAverage.toFixed(2)}/4.0`)
   lines.push(`Positive capacity average: ${risk.capacityAverage.toFixed(2)}/4.0`)
@@ -139,6 +141,8 @@ export function generateExecutiveReport(c: CEOConsoleCase, computed: ComputedRes
 
   // 7. Contradiction Findings
   lines.push(heading("7. Contradiction Findings"))
+  lines.push(ASSUMED_CLAIMS_DISCLOSURE)
+  lines.push("")
   lines.push(`Contradiction index: ${contradiction.index}`)
   const violatedChecks = contradiction.checks.filter(ch => ch.violated)
   if (violatedChecks.length > 0) {

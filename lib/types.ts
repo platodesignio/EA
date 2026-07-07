@@ -186,8 +186,12 @@ export type ContradictionCheck = {
 }
 
 export type ContradictionIndexResult = {
-  declaredGovernancePosition: string[]
-  operationalGovernancePattern: string[]
+  // Not collected from the organization — this is the generic institutional
+  // narrative (human-centered, transparent, accountable) the console
+  // assumes as a baseline and tests, since no separate claims-intake exists.
+  // Never call this "declared" anywhere it's displayed: nothing here was
+  // actually declared by the audited organization.
+  assumedGovernancePosition: string[]
   checks: ContradictionCheck[]
   index: RiskLevel
 }

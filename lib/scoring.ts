@@ -171,10 +171,15 @@ export function computeEvidenceConfidence(
 
   const level: ConfidenceLevel = percent < 40 ? "Low" : percent < 70 ? "Medium" : "High"
 
+  // Confidence never reaches 100% by design, at any level — even
+  // independent review caps at 90%, because evidence collected for a
+  // preliminary self-scan should stay open to challenge rather than being
+  // treated as closed proof. This is stated explicitly so the ceiling
+  // doesn't read as an unexplained arbitrary number.
   const explanation: Record<ConfidenceLevel, string> = {
     Low: "Low evidence confidence. This does not mean low risk. It means the available evidence is insufficient to verify the accountability structure.",
     Medium: "Medium evidence confidence. Some independent verification exists, but coverage of the accountability structure remains incomplete.",
-    High: "High evidence confidence. The accountability structure is supported by independent or verified evidence.",
+    High: "High evidence confidence. The accountability structure is supported by independent or verified evidence. Confidence is capped at 90% even here — evidence for a preliminary self-scan should remain open to challenge, not treated as closed proof.",
   }
 
   return {
@@ -264,8 +269,7 @@ export function computeContradictionIndex(
   const index: RiskLevel = violatedCount >= 4 ? "High" : violatedCount >= 2 ? "Medium" : "Low"
 
   return {
-    declaredGovernancePosition: checks.map(c => c.claim),
-    operationalGovernancePattern: checks.filter(c => c.violated).map(c => c.operationalFinding),
+    assumedGovernancePosition: checks.map(c => c.claim),
     checks,
     index,
   }
@@ -273,6 +277,19 @@ export function computeContradictionIndex(
 
 export const NO_CONTRADICTION_TEXT =
   "No major contradiction detected from the available information. This does not verify the system; it only means the current answers did not expose a major contradiction."
+
+// Must appear everywhere contradiction findings are shown — including the
+// exportable/printable Executive Report, not just the in-app step. Without
+// this line, "Contradiction index: HIGH" plus a list of "claim weakened by"
+// findings reads as if the organization actually made these claims and got
+// caught contradicting them. It didn't: the claims are a generic assumed
+// baseline (human-centered, transparent, accountable) this console tests
+// by default, since no separate claims-intake step exists.
+export const ASSUMED_CLAIMS_DISCLOSURE =
+  "These are not claims collected from the organization. They are a generic institutional narrative " +
+  "(human-centered, transparent, accountable) assumed as a baseline and tested against the recorded " +
+  "operational structure. A contradiction below means the assumed baseline does not hold — not that the " +
+  "organization made and broke this specific promise."
 
 // ─── Section 7 — Risk Dashboard ────────────────────────────────────────────
 
@@ -313,6 +330,17 @@ export function formatPreliminaryRisk(category: PreliminaryRiskCategory): string
   return `${category} preliminary risk`
 }
 
+// The risk figure is shown to one decimal place so readers can tell "1.1 —
+// just barely Moderate" from "1.9 — nearly High." That precision is about
+// readability, not measurement accuracy: the underlying weights (clarity
+// weights, the +0.4 per adjustment, the /22.5 confidence conversion) are
+// structured judgment calls, not calibrated against outcome data. State
+// this plainly wherever the score appears so a decimal doesn't read as
+// statistical rigor it doesn't have.
+export const RISK_SCORE_METHOD_NOTE =
+  "This figure is a structured heuristic estimate for comparing stages within one scan, not a statistically " +
+  "calibrated or validated measurement. Decimal precision is shown for readability, not measurement accuracy."
+
 // Names the single risk domain contributing most to the overall preliminary
 // risk figure, for the Executive Summary's "Primary operational concern" line.
 const RISK_DOMAIN_LABEL: Record<RiskDomainKey, string> = {
@@ -327,9 +355,13 @@ const RISK_DOMAIN_LABEL: Record<RiskDomainKey, string> = {
 
 export function derivePrimaryOperationalConcern(riskDomains: Record<RiskDomainKey, number>): string {
   const entries = Object.entries(riskDomains) as [RiskDomainKey, number][]
-  const [topKey, topValue] = entries.reduce((max, e) => (e[1] > max[1] ? e : max))
+  const topValue = Math.max(...entries.map(([, v]) => v))
   if (topValue === 0) return "No significant operational concern identified from the evidence provided."
-  return `${RISK_DOMAIN_LABEL[topKey]} risk (${topValue}/4)`
+  // Naming only the single highest domain understates a report where several
+  // domains are equally severe — a board reading just the summary line
+  // should see all of them, not whichever happened to be listed first.
+  const topKeys = entries.filter(([, v]) => v === topValue).map(([k]) => RISK_DOMAIN_LABEL[k])
+  return `${topKeys.join(", ")} risk (${topValue}/4)`
 }
 
 export function computeRiskDashboard(
@@ -357,9 +389,15 @@ export function computeRiskDashboard(
   const decisionAutomatic = stages.decision.exists === "yes" && stages.human_review.exists !== "yes"
 
   // ─ Risk domains (0 = no evidence of risk … 4 = structural evidence) ─
+  // Override mitigates overreach in proportion to its own strength, not by a
+  // flat amount — a "structurally" overridable system should be treated as
+  // far less overreaching than a "partially" overridable one, even when
+  // both start from the same prediction/scoring base.
   const ontologicalOverreach = (() => {
     const base = Math.max(masterFunction.operationalScores.Prediction, masterFunction.operationalScores.Scoring)
-    return clamp04(overrideWeak ? base : Math.max(0, base - 1))
+    if (overrideValue <= 1) return clamp04(base)
+    const mitigation = Math.round(((overrideValue - 1) / 3) * base)
+    return clamp04(base - mitigation)
   })()
 
   const humanReduction = clamp04(
@@ -376,9 +414,11 @@ export function computeRiskDashboard(
     if (appeal.exists === "no") return 4
     if (appeal.exists === "unknown") return 3
     if (appeal.exists === "partial") return stageEvidenceStrength(appeal.evidence) <= 1 ? 3 : 2
-    // exists === "yes"
+    // exists === "yes" — evidence strength still matters: an appeal route
+    // with zero supporting evidence is a materially weaker claim than one
+    // backed even by self-report, so each strength tier gets its own score.
     const strength = stageEvidenceStrength(appeal.evidence)
-    return strength === 0 ? 2 : strength === 1 ? 2 : strength === 2 ? 1 : 0
+    return strength === 0 ? 3 : strength === 1 ? 2 : strength === 2 ? 1 : 0
   })()
 
   const reversalLoss = clamp04((overrideWeak ? 2 : 0) + (decisionAutomatic ? 2 : 0))

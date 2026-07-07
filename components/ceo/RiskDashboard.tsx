@@ -2,7 +2,7 @@
 
 import { useMemo } from "react"
 import { useCEOConsoleStore } from "@/lib/ceo-console-store"
-import { deriveMasterFunction, computeEvidenceConfidence, computeContradictionIndex, computeRiskDashboard, formatPreliminaryRisk } from "@/lib/scoring"
+import { deriveMasterFunction, computeEvidenceConfidence, computeContradictionIndex, computeRiskDashboard, formatPreliminaryRisk, RISK_SCORE_METHOD_NOTE } from "@/lib/scoring"
 import { PageContainer, SectionTitle, SectionBanner, PrimaryButton, SecondaryButton, Card } from "@/components/evidence/shared"
 
 function Row({ label, value, max = 4 }: { label: string; value: number; max?: number }) {
@@ -41,7 +41,7 @@ export function RiskDashboard() {
 
       <SectionBanner>
         All figures below are preliminary, evidence-dependent, and unverified. This is not a final certification
-        of any kind.
+        of any kind. {RISK_SCORE_METHOD_NOTE}
       </SectionBanner>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
