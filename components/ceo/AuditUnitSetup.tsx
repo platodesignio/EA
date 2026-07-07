@@ -26,38 +26,38 @@ export function AuditUnitSetup() {
       </SectionBanner>
 
       <FieldGroup>
-        <Label>Organization Name</Label>
-        <TextInput value={u.organization_name} onChange={v => set({ organization_name: v })} placeholder="Organization name" />
+        <Label htmlFor="organization-name">Organization Name</Label>
+        <TextInput id="organization-name" value={u.organization_name} onChange={v => set({ organization_name: v })} placeholder="Organization name" />
       </FieldGroup>
 
       <FieldGroup>
-        <Label>Role of User</Label>
-        <Select value={u.user_role} onChange={v => set({ user_role: v })} options={ROLE_OPTIONS} />
+        <Label htmlFor="user-role">Role of User</Label>
+        <Select id="user-role" value={u.user_role} onChange={v => set({ user_role: v })} options={ROLE_OPTIONS} />
       </FieldGroup>
 
       <FieldGroup>
-        <Label>AI System Name</Label>
-        <TextInput value={u.ai_system_name} onChange={v => set({ ai_system_name: v })} placeholder="e.g. Applicant Screening Model" />
+        <Label htmlFor="ai-system-name">AI System Name</Label>
+        <TextInput id="ai-system-name" value={u.ai_system_name} onChange={v => set({ ai_system_name: v })} placeholder="e.g. Applicant Screening Model" />
       </FieldGroup>
 
       <FieldGroup>
-        <Label>Industry / Domain</Label>
-        <TextInput value={u.industry_domain} onChange={v => set({ industry_domain: v })} placeholder="e.g. Financial services, Healthcare, Retail" />
+        <Label htmlFor="industry-domain">Industry / Domain</Label>
+        <TextInput id="industry-domain" value={u.industry_domain} onChange={v => set({ industry_domain: v })} placeholder="e.g. Financial services, Healthcare, Retail" />
       </FieldGroup>
 
       <FieldGroup>
-        <Label hint="What does this AI system decide?">Primary Decision Affected by the AI System</Label>
-        <TextInput value={u.primary_decision} onChange={v => set({ primary_decision: v })} placeholder="e.g. Which applicants are shortlisted for interview" />
+        <Label htmlFor="primary-decision" hint="What does this AI system decide?">Primary Decision Affected by the AI System</Label>
+        <TextInput id="primary-decision" value={u.primary_decision} onChange={v => set({ primary_decision: v })} placeholder="e.g. Which applicants are shortlisted for interview" />
       </FieldGroup>
 
       <FieldGroup>
-        <Label>Who Is Evaluated by the System?</Label>
-        <TextInput value={u.who_is_evaluated} onChange={v => set({ who_is_evaluated: v })} placeholder="e.g. Job applicants, borrowers, platform workers" />
+        <Label htmlFor="who-is-evaluated">Who Is Evaluated by the System?</Label>
+        <TextInput id="who-is-evaluated" value={u.who_is_evaluated} onChange={v => set({ who_is_evaluated: v })} placeholder="e.g. Job applicants, borrowers, platform workers" />
       </FieldGroup>
 
       <FieldGroup>
-        <Label>What Consequence Can Result from the System?</Label>
-        <Select value={u.consequence} onChange={v => set({ consequence: v })} options={CONSEQUENCE_OPTIONS} />
+        <Label htmlFor="consequence">What Consequence Can Result from the System?</Label>
+        <Select id="consequence" value={u.consequence} onChange={v => set({ consequence: v })} options={CONSEQUENCE_OPTIONS} />
       </FieldGroup>
 
       <FieldGroup>

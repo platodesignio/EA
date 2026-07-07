@@ -122,27 +122,27 @@ export function ConsoleNav({ onViewAuditLogic }: { onViewAuditLogic: () => void 
           <button
             onClick={exportCase}
             title="Save the current scan as a file — the only backup outside this browser."
-            className="text-[10px] font-mono text-gray-400 hover:text-gray-700 transition-colors whitespace-nowrap"
+            className="text-[10px] font-mono text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap"
           >
             Export
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}
             title="Restore a previously exported scan"
-            className="text-[10px] font-mono text-gray-400 hover:text-gray-700 transition-colors whitespace-nowrap"
+            className="text-[10px] font-mono text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap"
           >
             Import
           </button>
           <input ref={fileInputRef} type="file" accept="application/json" onChange={handleImportFile} className="hidden" />
           <button
             onClick={onViewAuditLogic}
-            className="text-[10px] font-mono text-gray-400 hover:text-gray-700 transition-colors whitespace-nowrap"
+            className="text-[10px] font-mono text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap"
           >
             View Audit Logic
           </button>
           <button
             onClick={() => { if (confirm("Reset this scan? Current data will be cleared.")) dispatch({ type: "RESET" }) }}
-            className="text-[10px] font-mono text-gray-300 hover:text-gray-600 transition-colors whitespace-nowrap"
+            className="text-[10px] font-mono text-gray-500 hover:text-gray-700 transition-colors whitespace-nowrap"
           >
             Reset
           </button>

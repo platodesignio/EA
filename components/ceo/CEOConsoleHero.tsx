@@ -14,7 +14,7 @@ export function CEOConsoleHero({ onViewAuditLogic }: { onViewAuditLogic: () => v
 
   return (
     <PageContainer>
-      <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-400 uppercase mb-3">
+      <p className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-500 uppercase mb-3">
         Powered by the DDAT Evidence Standard
       </p>
       <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-3">
@@ -37,7 +37,7 @@ export function CEOConsoleHero({ onViewAuditLogic }: { onViewAuditLogic: () => v
         ))}
       </div>
 
-      <p className="text-xs text-gray-400 leading-relaxed max-w-2xl mb-8">
+      <p className="text-xs text-gray-500 leading-relaxed max-w-2xl mb-8">
         Not a personality quiz, psychological diagnosis, legal certification, compliance certification, or AI
         safety certification.
       </p>

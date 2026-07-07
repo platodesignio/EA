@@ -47,7 +47,7 @@ export function DecisionSystemMap() {
                     {s.exists}
                   </span>
                   <span className="text-sm text-gray-900">{DECISION_STAGE_LABEL[key]}</span>
-                  {s.owner && <span className="text-xs text-gray-400">{s.owner}</span>}
+                  {s.owner && <span className="text-xs text-gray-500">{s.owner}</span>}
                 </div>
                 <span className="text-gray-300 text-xs">{isOpen ? "▲" : "▼"}</span>
               </div>
@@ -62,8 +62,9 @@ export function DecisionSystemMap() {
                   />
 
                   <FieldGroup>
-                    <Label>Who Owns It?</Label>
+                    <Label htmlFor={`stage-owner-${key}`}>Who Owns It?</Label>
                     <TextInput
+                      id={`stage-owner-${key}`}
                       value={s.owner}
                       onChange={v => dispatch({ type: "SET_STAGE", payload: { key, data: { owner: v } } })}
                       placeholder="Name or team, or '(not named)'"

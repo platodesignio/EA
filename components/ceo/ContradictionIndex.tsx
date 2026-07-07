@@ -34,7 +34,7 @@ export function ContradictionIndex() {
       </SectionBanner>
 
       <div className={`border ${INDEX_BORDER[contradiction.index]} p-5 mb-8`}>
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-2">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
           Contradiction Index
         </p>
         <p className="text-[15px] font-mono font-bold text-gray-900 uppercase tracking-wide">
@@ -44,10 +44,10 @@ export function ContradictionIndex() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div>
-          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
             Assumed Institutional Position — Not Collected
           </p>
-          <p className="text-[11px] text-gray-400 leading-relaxed mb-3">{ASSUMED_CLAIMS_DISCLOSURE}</p>
+          <p className="text-[11px] text-gray-500 leading-relaxed mb-3">{ASSUMED_CLAIMS_DISCLOSURE}</p>
           <ul className="space-y-1.5">
             {contradiction.assumedGovernancePosition.map((p, i) => (
               <li key={i} className="flex gap-2 text-sm text-gray-700">
@@ -58,7 +58,7 @@ export function ContradictionIndex() {
           </ul>
         </div>
         <div>
-          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+          <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
             Findings
           </p>
           {contradiction.checks.some(c => c.violated) ? (
@@ -79,13 +79,13 @@ export function ContradictionIndex() {
       </div>
 
       <Card className="mb-10">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Checks
         </p>
         <div className="space-y-2">
           {contradiction.checks.map(c => (
             <div key={c.id} className="flex items-start gap-3 py-2 border-b border-gray-100 last:border-0">
-              <span className={`text-[10px] font-mono font-bold border px-1.5 py-0.5 uppercase shrink-0 ${c.violated ? "border-gray-900 text-gray-900" : "border-gray-200 text-gray-400"}`}>
+              <span className={`text-[10px] font-mono font-bold border px-1.5 py-0.5 uppercase shrink-0 ${c.violated ? "border-gray-900 text-gray-900" : "border-gray-200 text-gray-500"}`}>
                 {c.violated ? "Contradicted" : "Holds"}
               </span>
               <span className="text-sm text-gray-700">{c.claim}</span>

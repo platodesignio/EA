@@ -122,7 +122,7 @@ export function ExecutiveReport() {
         {report}
       </pre>
 
-      <div className="mt-10 pt-6 border-t border-gray-200 text-[10px] text-gray-400 leading-relaxed print:hidden">
+      <div className="mt-10 pt-6 border-t border-gray-200 text-[10px] text-gray-500 leading-relaxed print:hidden">
         {DISCLAIMER_TEXT}
       </div>
 

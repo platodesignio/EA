@@ -3,14 +3,17 @@
 import React from "react"
 
 // ─── Label ────────────────────────────────────────────────────────────────────
-export function Label({ children, hint }: { children: React.ReactNode; hint?: string }) {
+// Renders a real <label>, not a <span>: pass htmlFor matching the input's id
+// so screen readers announce the label when the field receives focus, not
+// just when read top-to-bottom.
+export function Label({ children, hint, htmlFor }: { children: React.ReactNode; hint?: string; htmlFor?: string }) {
   return (
-    <div className="mb-1">
+    <label htmlFor={htmlFor} className="mb-1 block">
       <span className="text-[11px] font-mono font-bold tracking-[0.15em] text-gray-900 uppercase">
         {children}
       </span>
-      {hint && <span className="ml-2 text-[10px] text-gray-400">{hint}</span>}
-    </div>
+      {hint && <span className="ml-2 text-[10px] text-gray-500">{hint}</span>}
+    </label>
   )
 }
 
@@ -25,14 +28,17 @@ export function TextInput({
   onChange,
   placeholder = "",
   mono = false,
+  id,
 }: {
   value: string
   onChange: (v: string) => void
   placeholder?: string
   mono?: boolean
+  id?: string
 }) {
   return (
     <input
+      id={id}
       type="text"
       value={value}
       onChange={e => onChange(e.target.value)}
@@ -48,14 +54,17 @@ export function Textarea({
   onChange,
   placeholder = "",
   rows = 3,
+  id,
 }: {
   value: string
   onChange: (v: string) => void
   placeholder?: string
   rows?: number
+  id?: string
 }) {
   return (
     <textarea
+      id={id}
       value={value}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
@@ -70,13 +79,16 @@ export function Select<T extends string>({
   value,
   onChange,
   options,
+  id,
 }: {
   value: T
   onChange: (v: T) => void
   options: { value: T; label: string }[]
+  id?: string
 }) {
   return (
     <select
+      id={id}
       value={value}
       onChange={e => onChange(e.target.value as T)}
       className="w-full border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none focus:border-gray-900 transition-colors appearance-none"
@@ -317,11 +329,28 @@ export function SecondaryButton({
 }
 
 // ─── SectionTitle ─────────────────────────────────────────────────────────────
+// Each step is a distinct full-page view in a single-route SPA — CEOConsoleHero
+// is the only other view with its own <h1>, and the two never render at the
+// same time, so this can safely be the page's h1 rather than a orphaned h2
+// with nothing above it. Focus moves here on mount so screen reader and
+// keyboard users get a cue that the "page" changed — a plain step-forward
+// button click leaves focus behind otherwise, with no indication anything
+// happened at all for a non-visual user.
 export function SectionTitle({ children }: { children: React.ReactNode }) {
+  const ref = React.useRef<HTMLHeadingElement>(null)
+
+  React.useEffect(() => {
+    ref.current?.focus()
+  }, [])
+
   return (
-    <h2 className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-400 uppercase mb-6">
+    <h1
+      ref={ref}
+      tabIndex={-1}
+      className="text-[10px] font-mono font-bold tracking-[0.3em] text-gray-500 uppercase mb-6 outline-none focus-visible:text-gray-900"
+    >
       {children}
-    </h2>
+    </h1>
   )
 }
 
@@ -374,7 +403,7 @@ export function TagInput({
           {values.map(v => (
             <span key={v} className="flex items-center gap-1 px-2 py-0.5 bg-gray-100 text-[11px] font-mono text-gray-700">
               {v}
-              <button onClick={() => remove(v)} className="ml-1 text-gray-400 hover:text-gray-900">×</button>
+              <button onClick={() => remove(v)} className="ml-1 text-gray-500 hover:text-gray-900">×</button>
             </span>
           ))}
         </div>

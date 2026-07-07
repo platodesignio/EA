@@ -37,7 +37,7 @@ export function EvidenceConfidence() {
       </SectionBanner>
 
       <div className={`border ${LEVEL_BORDER[confidence.level]} p-5 mb-8`}>
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-2">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-2">
           Evidence Confidence — separate from risk
         </p>
         <p className="text-[15px] font-mono font-bold text-gray-900 uppercase tracking-wide mb-1">
@@ -50,7 +50,7 @@ export function EvidenceConfidence() {
       </div>
 
       <div className="mb-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
           Missing Evidence
         </p>
         {missingEvidence.length > 0 ? (
@@ -70,7 +70,7 @@ export function EvidenceConfidence() {
       </div>
 
       <Card className="mb-10">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-4">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-4">
           Evidence by Stage and Chain Item
         </p>
         <div className="space-y-1.5">

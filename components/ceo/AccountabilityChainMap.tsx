@@ -34,12 +34,12 @@ export function AccountabilityChainMap() {
       </div>
 
       <Card className="mb-8 overflow-x-auto">
-        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-400 uppercase mb-3">
+        <p className="text-[10px] font-mono font-bold tracking-[0.2em] text-gray-500 uppercase mb-3">
           Chain Summary
         </p>
         <table className="w-full text-xs border-collapse">
           <thead>
-            <tr className="border-b border-gray-200 text-left text-gray-400 font-mono uppercase text-[10px]">
+            <tr className="border-b border-gray-200 text-left text-gray-500 font-mono uppercase text-[10px]">
               <th className="py-1.5 pr-3 font-normal">Stage</th>
               <th className="py-1.5 pr-3 font-normal">Owner</th>
               <th className="py-1.5 pr-3 font-normal">Evidence</th>
@@ -79,7 +79,7 @@ export function AccountabilityChainMap() {
               <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpanded(isOpen ? null : key)}>
                 <div className="flex items-center gap-3">
                   <span className="text-sm text-gray-900">{CHAIN_ITEM_LABEL[key]}</span>
-                  {item.owner && <span className="text-xs text-gray-400">{item.owner}</span>}
+                  {item.owner && <span className="text-xs text-gray-500">{item.owner}</span>}
                   {item.missing_documentation && (
                     <span className="text-[10px] font-mono border border-gray-900 text-gray-900 px-1.5 py-0.5 uppercase">
                       missing docs
@@ -92,8 +92,9 @@ export function AccountabilityChainMap() {
               {isOpen && (
                 <div className="mt-4 pt-4 border-t border-gray-100 space-y-4">
                   <FieldGroup>
-                    <Label>Responsible Owner</Label>
+                    <Label htmlFor={`chain-owner-${key}`}>Responsible Owner</Label>
                     <TextInput
+                      id={`chain-owner-${key}`}
                       value={item.owner}
                       onChange={v => dispatch({ type: "SET_CHAIN_ITEM", payload: { key, data: { owner: v } } })}
                       placeholder="Name, team, or '(not named)'"
@@ -121,8 +122,9 @@ export function AccountabilityChainMap() {
                   />
 
                   <FieldGroup>
-                    <Label hint="optional">Risk Note</Label>
+                    <Label htmlFor={`chain-risk-note-${key}`} hint="optional">Risk Note</Label>
                     <Textarea
+                      id={`chain-risk-note-${key}`}
                       value={item.risk_note}
                       onChange={v => dispatch({ type: "SET_CHAIN_ITEM", payload: { key, data: { risk_note: v } } })}
                       placeholder="Anything specific about this link worth flagging"
